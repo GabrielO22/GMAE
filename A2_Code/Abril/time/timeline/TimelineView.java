@@ -1,3 +1,8 @@
+package time.timeline;
+
+import campaign.QuestEvent;
+import user.User;
+
 import java.util.List;
 
 public interface TimelineView {

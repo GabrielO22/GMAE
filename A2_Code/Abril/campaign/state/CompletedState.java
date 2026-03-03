@@ -1,3 +1,7 @@
+package campaign.state;
+
+import campaign.QuestEvent;
+
 public class CompletedState implements QuestState {
     @Override
     public void start(QuestEvent event) { System.out.println("Quest already completed."); }

@@ -1,3 +1,19 @@
+package main;
+
+
+import campaign.Campaign;
+import campaign.QuestEvent;
+import item.Item;
+import item.ItemFactory;
+import sharing.PermissionLevel;
+import time.TimeRule;
+import time.WorldClock;
+import time.timeline.DayView;
+import time.timeline.MonthView;
+import time.timeline.TimelineView;
+import user.User;
+import world.Realm;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +48,7 @@ public class Main {
         };
 
         Realm earthRealm = new Realm("R1", "Green Earth", "Starting Zone", standardTime);
-        Realm fireRealm = new Realm("R2", "Fire Realm", "Endgame Zone", volcanicTime);
+        Realm fireRealm = new Realm("R2", "Fire world.Realm", "Endgame Zone", volcanicTime);
 
         // ---------------------------------------------------------
         // 3. SETUP: Items & Factory
@@ -51,7 +67,7 @@ public class Main {
         // 4. SETUP: Characters & Leveling
         // ---------------------------------------------------------
         System.out.println("\n=== CREATING CHARACTERS ===");
-        Character hero = new Character("C1", "Arthur", "Warrior", player1.getUserId());
+        user.Character hero = new user.Character("C1", "Arthur", "Warrior", player1.getUserId());
         player1.addCharacter(hero);
 
         System.out.println(hero.getName() + " created at Level " + hero.getLevel());
@@ -84,7 +100,7 @@ public class Main {
         eventsToView.add(bossFight);
 
         // ---------------------------------------------------------
-        // 6. SETUP: Campaign & Sharing Logic
+        // 6. SETUP: campaign.Campaign & Sharing Logic
         // ---------------------------------------------------------
         System.out.println("\n=== CAMPAIGN & SHARING ===");
         Campaign epicCampaign = new Campaign("Camp1", "The Dragon's Lair", player1);
@@ -111,7 +127,7 @@ public class Main {
         TimelineView monthView = new MonthView();
         monthView.display(eventsToView, player1, clock.getCurrentTime());
 
-        System.out.println("\n=== TEST 3: Switching User Preference to LOCAL REALM TIME ===");
+        System.out.println("\n=== TEST 3: Switching user.User Preference to LOCAL REALM TIME ===");
         player1.getSettings().setDisplayPreference(Settings.TimeDisplayMode.REALM_LOCAL_CLOCK);
         monthView.display(eventsToView, player1, clock.getCurrentTime());
         // Observe: The "Magma Dragon" time should shift by +5 hours in the printout
@@ -120,16 +136,16 @@ public class Main {
         // 8. TEST: State Pattern & Loot Distribution
         // ---------------------------------------------------------
         System.out.println("\n=== TEST 4: Quest State & Loot Distribution ===");
-        System.out.println("Hero's Inventory Before:");
+        System.out.println("Hero's item.Inventory Before:");
         hero.getInventory().listAllItems();
 
         System.out.println("\nStarting the boss fight...");
         bossFight.startQuest(); // Safely transitions from NotStarted to InProgress
 
         System.out.println("\nCompleting the boss fight...");
-        bossFight.completeQuest(); // Automatically distributes loot exactly once & transitions to CompletedState
+        bossFight.completeQuest(); // Automatically distributes loot exactly once & transitions to state.CompletedState
 
-        System.out.println("\nHero's Inventory After:");
+        System.out.println("\nHero's item.Inventory After:");
         hero.getInventory().listAllItems();
     }
 }

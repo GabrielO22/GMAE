@@ -1,7 +1,13 @@
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
+package campaign;
+
+import sharing.CampaignShare;
+import sharing.PermissionLevel;
+import user.User;
+
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 public class Campaign {
     private final String campaignId;
@@ -23,7 +29,7 @@ public class Campaign {
         this.sharedUsers = new HashSet<>();
     }
 
-    // QuestEvent Management
+    // campaign.QuestEvent Management
     public void addQuestEvent(QuestEvent event) {
         ownedQuestEvents.add(event);
     }
@@ -46,7 +52,7 @@ public class Campaign {
         return result;
     }
 
-    // Campaign Management
+    // campaign.Campaign Management
     public void rename(String newName) {
         this.campaignName = newName;
     }
@@ -72,6 +78,22 @@ public class Campaign {
     public User getOwner() { return owner; }
     public boolean isArchived() { return archived; }
     public Set<QuestEvent> getOwnedQuestEvents() { return Collections.unmodifiableSet(ownedQuestEvents); }
+
+
+    public Set<CampaignShare> getSharedUsers() {
+        return Collections.unmodifiableSet(sharedUsers);
+    }
+
+    public boolean hasAccess(User player) {
+        if (this.owner.equals(player)) return true;
+
+        for (CampaignShare share : sharedUsers) {
+            if (share.getUser().equals(player)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     // Hashset overrides for character id comparison
     @Override

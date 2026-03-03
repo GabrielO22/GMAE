@@ -1,3 +1,8 @@
+package user;
+
+import item.Inventory;
+import item.Item;
+
 import java.util.Map;
 import java.util.Objects;
 
@@ -33,7 +38,7 @@ public class Character {
         this.level++;
     }
 
-    void changeClass(String characterClass) {
+    public void changeClass(String characterClass) {
         this.characterClass = characterClass;
     }
 

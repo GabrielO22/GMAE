@@ -1,3 +1,7 @@
+package time.timeline;
+
+import time.WorldClock;
+
 public class DayView extends AbstractTimelineView {
 
     @Override

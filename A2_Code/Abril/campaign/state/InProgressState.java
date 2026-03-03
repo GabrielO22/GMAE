@@ -1,3 +1,7 @@
+package campaign.state;
+
+import campaign.QuestEvent;
+
 public class InProgressState implements QuestState {
     @Override
     public void start(QuestEvent event) {

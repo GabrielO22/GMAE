@@ -1,12 +1,24 @@
+package campaign;
+
+import campaign.state.NotStartedState;
+import campaign.state.QuestState;
+import item.Item;
+import main.Settings;
+import sharing.EventShare;
+import sharing.PermissionLevel;
+import user.User;
+import user.Character;
+import world.Realm;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 public class QuestEvent {
     private final String questEventId;
-    private String questEventName;
-    private String questEventDescription;
+    private final String questEventName;
+    private final String questEventDescription;
     private int startTime;
     private int endTime;
     private Realm realm;
@@ -56,7 +68,7 @@ public class QuestEvent {
                 System.out.println("Decreased " + item.getItemName() + " by " + quantity + ".");
             }
         } else {
-            System.out.println("Item not found in quest loot.");
+            System.out.println("item.Item not found in quest loot.");
         }
     }
 

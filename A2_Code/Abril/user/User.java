@@ -1,6 +1,12 @@
+package user;
+
+import campaign.Campaign;
+import campaign.QuestEvent;
+import main.Settings;
+
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Collections;
 
 public class User {
     private final String userId;
@@ -38,7 +44,7 @@ public class User {
     }
 
 
-    // Campaign management
+    // campaign.Campaign management
     public void addCampaign(Campaign campaign) {
         ownedCampaigns.add(campaign);
     }
@@ -47,7 +53,7 @@ public class User {
         if (this.ownedCampaigns.remove(campaign)) {
             System.out.println("Successfully removed campaign with ID " + campaign.getCampaignId());
         } else {
-            System.out.println("Could not remove: Campaign ID " + campaign.getCampaignId() + " not found.");
+            System.out.println("Could not remove: campaign.Campaign ID " + campaign.getCampaignId() + " not found.");
         }
     }
 
@@ -59,7 +65,7 @@ public class User {
         sharedEvents.add(event);
     }
 
-    // Character management
+    // user.Character management
     public void addCharacter(Character character) {
         ownedCharacters.add(character);
     }
@@ -68,7 +74,7 @@ public class User {
         if (this.ownedCharacters.remove(character)) {
             System.out.println("Successfully removed character with ID " + character.getCharacterId());
         } else {
-            System.out.println("Could not remove: Character ID " + character.getCharacterId() + " not found.");
+            System.out.println("Could not remove: user.Character ID " + character.getCharacterId() + " not found.");
         }
     }
 

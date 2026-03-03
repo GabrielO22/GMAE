@@ -1,3 +1,5 @@
+package time;
+
 public class WorldClock {
     private static WorldClock instance;
     private int currentWorldMinutes;

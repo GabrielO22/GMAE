@@ -1,10 +1,14 @@
+package main;
+
+import world.Realm;
+
 public class Settings {
     private Realm currentRealm;
 
     enum Theme {CLASSIC, MODERN};
     private Theme theme = Theme.CLASSIC;
 
-    enum TimeDisplayMode {WORLD_CLOCK, REALM_LOCAL_CLOCK, BOTH};
+    public enum TimeDisplayMode {WORLD_CLOCK, REALM_LOCAL_CLOCK, BOTH};
     private TimeDisplayMode timeDisplayMode = TimeDisplayMode.WORLD_CLOCK;
 
     public Settings() {

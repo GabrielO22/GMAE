@@ -1,18 +1,20 @@
+package item;
+
 import java.util.Objects;
 
 public class Item {
-    private final String itemId;
-    private String itemName;
-    private String description;
+    public final String itemId;
+    public String itemName;
+    public String description;
 
     public enum ItemType {WEAPON, ARMOR, POTION, QUEST_ITEM, MISCELLANEOUS}
     public enum ItemRarity {UNCOMMON, COMMON, RARE, EPIC, LEGENDARY}
 
-    private ItemType itemType;
-    private ItemRarity itemRarity;
+    public ItemType itemType;
+    public ItemRarity itemRarity;
 
 
-    Item(String itemId, String itemName, String description, ItemType itemType, ItemRarity itemRarity) {
+    public Item(String itemId, String itemName, String description, ItemType itemType, ItemRarity itemRarity) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.description = description;

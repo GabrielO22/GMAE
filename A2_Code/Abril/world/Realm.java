@@ -1,5 +1,6 @@
-import java.util.HashMap;
-import java.util.Objects;
+package world;
+
+import time.TimeRule;
 
 public class Realm implements TimeRule {
     private final String realmId;

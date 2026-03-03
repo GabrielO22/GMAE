@@ -1,3 +1,7 @@
+package campaign.state;
+
+import campaign.QuestEvent;
+
 public interface QuestState {
     void start(QuestEvent event);
     void complete(QuestEvent event);

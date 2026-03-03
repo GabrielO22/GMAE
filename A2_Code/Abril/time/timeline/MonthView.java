@@ -1,3 +1,7 @@
+package time.timeline;
+
+import time.WorldClock;
+
 public class MonthView extends AbstractTimelineView {
 
     @Override

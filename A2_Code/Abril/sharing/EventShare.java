@@ -1,3 +1,8 @@
+package sharing;
+
+import campaign.QuestEvent;
+import user.User;
+
 public class EventShare {
     private final QuestEvent event;
     private final User user;

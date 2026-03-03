@@ -1,6 +1,8 @@
+package item;
+
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Collections;
 
 public class Inventory {
     private final String inventoryId;

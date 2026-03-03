@@ -1,3 +1,9 @@
+package sharing;
+
+
+import campaign.Campaign;
+import user.User;
+
 public class CampaignShare {
     private final Campaign campaign;
     private final User user;
