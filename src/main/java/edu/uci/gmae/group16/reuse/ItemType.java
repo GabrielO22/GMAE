@@ -1,2 +1,7 @@
-package edu.uci.gmae.group16.profiles;public class ItemType {
+package edu.uci.gmae.group16.reuse;
+
+public enum ItemType {
+    RELIC,
+    CONSUMABLE,
+    BUFF
 }

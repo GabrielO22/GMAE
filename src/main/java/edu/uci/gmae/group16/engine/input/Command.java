@@ -1,9 +1,11 @@
 package edu.uci.gmae.group16.engine.input;
 
 public enum Command {
-    ACTION_1,
-    ACTION_2,
-    ACTION_3,
-    ACTION_4,
-    USE_ITEM
+    MOVE_UP,
+    MOVE_DOWN,
+    MOVE_LEFT,
+    MOVE_RIGHT,
+    ACTION,
+    USE_ITEM,
+    CONFIRM
 }
