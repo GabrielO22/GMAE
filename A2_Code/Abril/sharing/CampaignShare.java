@@ -1,6 +1,5 @@
 package sharing;
 
-
 import campaign.Campaign;
 import user.User;
 

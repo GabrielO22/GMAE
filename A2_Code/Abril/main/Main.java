@@ -1,6 +1,5 @@
 package main;
 
-
 import campaign.Campaign;
 import campaign.QuestEvent;
 import item.Item;
@@ -54,7 +53,7 @@ public class Main {
         // 3. SETUP: Items & Factory
         // ---------------------------------------------------------
         System.out.println("\n=== INITIALIZING ITEM FACTORY ===");
-        ItemFactory.initializeRegistry(); // Setup the item registry
+        ItemFactory.initializeRegistry(); // Set up the item registry
 
         // Spawn items using the factory pattern instead of manual instantiation
         Item healthPotion = ItemFactory.createItem("pot_minor_hp");

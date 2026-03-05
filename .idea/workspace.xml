@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0fa9fb36-12db-426e-9ce7-f910e6bd1ebc" name="Changes" comment="organize project structure">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/Engine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/GamePanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/KeyHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/Player.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GMAE.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GMAE/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GMAE/AuthorizationService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GMAE/Campaign.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GMAE/Character.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GMAE/GuildQuest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GMAE/GuildQuestController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GMAE/Inventory.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GMAE/Item.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GMAE/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GMAE/PermissionLevel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GMAE/QuestEvent.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GMAE/Realm.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GMAE/User.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GMAE/Visibility.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/maven/archetype.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/main/java/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/test/java/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/sharing/CampaignShare.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/sharing/CampaignShare.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="package-info" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Pull.Settings">
+    <option name="OPTIONS">
+      <set>
+        <option value="REBASE" />
+      </set>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;abrilrd&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/GabrielO22/GMAE.git&quot;,
+    &quot;accountId&quot;: &quot;c5c4c9b5-4437-4af7-90aa-69bf64207a36&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="3ARuqt13QYh7WfWLRSPt7JBjf33" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Engine.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "abril__work__branch",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/adelg/IdeaProjects/GMAE",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.22183909",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Engine" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="engine.Engine" />
+      <module name="GMAE" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="engine.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="engine.Main" />
+      <module name="GMAE" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="engine.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Engine" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0fa9fb36-12db-426e-9ce7-f910e6bd1ebc" name="Changes" comment="" />
+      <created>1772567897198</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1772567897198</updated>
+      <workItem from="1772567898451" duration="7874000" />
+      <workItem from="1772583989915" duration="123000" />
+      <workItem from="1772584222488" duration="9765000" />
+    </task>
+    <task id="LOCAL-00001" summary="organize project structure">
+      <option name="closed" value="true" />
+      <created>1772581031735</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1772581031735</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="organize project structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="organize project structure" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/A2_Code/Gabriel/Inventory.java</url>
+          <line>1</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/A2_Code/Gabriel/GuildQuestController.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/A2_Code/Gabriel/GuildQuestController.java</url>
+          <line>236</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/A2_Code/Gabriel/GuildQuestController.java</url>
+          <line>472</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
