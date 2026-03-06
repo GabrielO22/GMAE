@@ -32,8 +32,8 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyH);
         this.setFocusable(true); // Crucial: Allows it to receive key inputs!
 
-        player1 = new Player(100, 100, Color.WHITE, keyH, true);
-        player2 = new Player(500, 100, Color.RED, keyH, false);
+        player1 = new Player(100, 100, keyH, true);
+        player2 = new Player(500, 100, keyH, false);
     }
 
     public void startGameThread() {
