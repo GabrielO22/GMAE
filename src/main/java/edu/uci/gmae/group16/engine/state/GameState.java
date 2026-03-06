@@ -6,4 +6,7 @@ public record GameState(
         String title,
         String statusLine,
         List<String> logLines
-) {}
+) {
+
+}
+

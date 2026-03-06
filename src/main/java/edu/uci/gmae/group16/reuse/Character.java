@@ -31,7 +31,6 @@ public class Character {
         defence = 0;
         speed = 0;
     }
-
     public UUID getID() {
         return id;
     }

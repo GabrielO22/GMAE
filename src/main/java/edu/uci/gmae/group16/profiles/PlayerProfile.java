@@ -1,6 +1,7 @@
 package edu.uci.gmae.group16.profiles;
 
 import java.util.*;
+import edu.uci.gmae.group16.reuse.Character;
 
 public class PlayerProfile {
     private final UUID playerID;
@@ -9,8 +10,15 @@ public class PlayerProfile {
     private int duelsWon;
     private int duelsLost;
 
+    private final List<Character> characters;
+    private final int MAX_CHARACTERS = 3;
+
     public PlayerProfile(UUID playerID) {
         this.playerID = playerID;
+        characters = new LinkedList<>();
+        for (int i = 0; i < MAX_CHARACTERS; i++) {
+            characters.add(new Character());
+        }
     }
 
     public UUID getPlayerID() {
@@ -47,5 +55,9 @@ public class PlayerProfile {
 
     public void addDuelLost() {
         duelsLost ++;
+    }
+
+    public List<Character> getCharacters() {
+        return characters;
     }
 }
