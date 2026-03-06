@@ -4,8 +4,10 @@ import edu.uci.gmae.group16.engine.input.Command;
 import edu.uci.gmae.group16.engine.state.GameState;
 import edu.uci.gmae.group16.profiles.PlayerProfile;
 
+import java.util.*;
+
 public interface MiniAdventure {
-    String id();
+    UUID id();
     String name();
 
     void initialize(PlayerProfile p1, PlayerProfile p2);

@@ -1,20 +1,30 @@
-package edu.uci.gmae.group16.profiles;
+package edu.uci.gmae.group16.characters;
 
 import java.util.*;
 
-public interface CharacterClass {
+public interface CharacterType {
     UUID id();
-    String className();
+    String displayName();
 
-    int maxHP();
-    int attack();
-    int defence();
-    double speed();
+    int maxHP();    // standard: 100
+    int attack();   // standard: 20
+    int defence();  // standard: 10
+    double speed(); // standard: 1 (tile/sec)
 
-    String getClassName();
-    int getMaxHP();
-    int getAttack();
-    int getDefence();
-    double getSpeed();
+    default String getDisplayName() {
+        return displayName();
+    }
+    default int getMaxHP() {
+        return maxHP();
+    }
+    default int getAttack() {
+        return attack();
+    }
+    default int getDefence() {
+        return defence();
+    }
+    default double getSpeed() {
+        return speed();
+    }
 
 }

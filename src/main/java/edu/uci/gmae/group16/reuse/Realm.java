@@ -1,2 +1,5 @@
-package edu.uci.gmae.group16.reuse;public class Realm {
+package edu.uci.gmae.group16.reuse;
+
+public class Realm {
+
 }

@@ -1,12 +1,16 @@
 import java.util.*;
 
 public class Realm {
+
     private final String name;
     private String description = null;
     private final UUID id = UUID.randomUUID();
-    private Integer xCoordinate = null;
-    private Integer yCoordinate = null;
-    private static final Set<String> existingNames = new HashSet<>();
+
+//    --- Unnecessary for new requirements ---
+
+//    private Integer xCoordinate = null;
+//    private Integer yCoordinate = null;
+//    private static final Set<String> existingNames = new HashSet<>();
 
     public Realm(String name) {
         checkDuplicate(name);
