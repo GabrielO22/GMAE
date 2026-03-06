@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0fa9fb36-12db-426e-9ce7-f910e6bd1ebc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="0fa9fb36-12db-426e-9ce7-f910e6bd1ebc" name="Changes" comment="add sprite to players">
+      <change afterPath="$PROJECT_DIR$/A2_Code/Abril/tile/Tile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/A2_Code/Abril/tile/TileManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/maps/map01.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/boulder.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/grass.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/water.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/Engine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/GamePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/Player.java" afterDir="false" />
     </list>
@@ -58,7 +64,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="abril_work_branch" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -102,7 +108,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "abril__work__branch",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/adelg/IdeaProjects/GMAE/src/main/resources/player",
+    "last_opened_file_path": "/Users/adelg/IdeaProjects/GMAE/src/main/resources/tiles",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -118,6 +124,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/tiles" />
       <recent name="$PROJECT_DIR$/src/main/resources/player" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -189,7 +196,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772581031735</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add sprite to players">
+      <option name="closed" value="true" />
+      <created>1772762333725</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1772762333725</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,7 +221,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="main" />
+                        <option value="abril_work_branch" />
                       </list>
                     </value>
                   </entry>
@@ -220,7 +235,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="organize project structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="organize project structure" />
+    <MESSAGE value="add sprite to players" />
+    <option name="LAST_COMMIT_MESSAGE" value="add sprite to players" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

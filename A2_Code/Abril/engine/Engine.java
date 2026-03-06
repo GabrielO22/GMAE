@@ -24,10 +24,12 @@ public class Engine extends Application {
 
         // 1. Create the main JavaFX layout
         mainLayout = new BorderPane();
+        mainLayout.setPrefSize(800, 600);
 
         // 2. Create a simple JavaFX Main Menu
         VBox mainMenu = new VBox(10);
-        Button startDungeonRaceBtn = new Button("Play Dungeon Race");
+        mainMenu.setAlignment(javafx.geometry.Pos.CENTER); // center the button
+        Button startDungeonRaceBtn = new Button("Start Game!");
 
         // 3. CLick button
         startDungeonRaceBtn.setOnAction(e -> launchMiniAdventure());
@@ -36,7 +38,7 @@ public class Engine extends Application {
         mainLayout.setCenter(mainMenu);
 
         // 4. Show the JavaFX Window
-        Scene scene = new Scene(mainLayout, 800, 600);
+        Scene scene = new Scene(mainLayout);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
 
@@ -58,6 +60,14 @@ public class Engine extends Application {
             GamePanel gamePanel = new GamePanel();
             swingNode.setContent(gamePanel); // Put the game panel inside the portal
             gamePanel.startGameThread(); // Start the tutorial's game loop
+
+            Platform.runLater(() -> {
+                mainLayout.setPrefSize(javafx.scene.layout.Region.USE_COMPUTED_SIZE, javafx.scene.layout.Region.USE_COMPUTED_SIZE);
+
+                Stage stage = (Stage) mainLayout.getScene().getWindow();
+                stage.sizeToScene();
+                stage.centerOnScreen(); // Recenter the window
+            });
         });
 
         // 3. Swap the JavaFX view from the Main Menu to the Game

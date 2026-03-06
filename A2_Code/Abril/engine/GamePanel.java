@@ -1,5 +1,7 @@
 package engine;
 
+import tile.TileManager;
+
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,12 +15,13 @@ public class GamePanel extends JPanel implements Runnable {
     final int scale = 3;
     public final int tileSize = originalTileSize * scale; // 48x48 tile
 
-    final int maxScreenCol = 16; // 4 by 3 ratio
-    final int maxScreenRow = 12;
+    public final int maxScreenCol = 16; // 4 by 3 ratio
+    public final int maxScreenRow = 12;
     public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     int FPS = 60;
+    TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
 
@@ -30,7 +33,8 @@ public class GamePanel extends JPanel implements Runnable {
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true); // Improves rendering performance
         this.addKeyListener(keyH);
-        this.setFocusable(true); // Crucial: Allows it to receive key inputs!
+        this.setFocusable(true); // required to receive key inputs
+
 
         player1 = new Player(100, 100, keyH, true);
         player2 = new Player(500, 100, keyH, false);
@@ -72,6 +76,7 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g); // erase previous frame
         Graphics2D g2 = (Graphics2D) g;
 
+        tileM.draw(g2);
         player1.draw(g2, tileSize);
         player2.draw(g2, tileSize);
 

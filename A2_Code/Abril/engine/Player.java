@@ -1,6 +1,5 @@
 package engine;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -10,7 +9,6 @@ import javax.imageio.ImageIO;
 public class Player {
     int x, y;
     int speed;
-    Color color;
     KeyHandler keyH;
     boolean isPlayer1; // Tells the object which keys to listen to
 
@@ -64,7 +62,7 @@ public class Player {
         }
 
         if (isMoving) {
-            spriteCounter ++;
+            spriteCounter ++; //inc until 12 ticks, then trigger animation change
             if (spriteCounter >= 12) {
                 if (spriteNum == 1) {
                     spriteNum = 2;
