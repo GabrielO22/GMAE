@@ -4,17 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0fa9fb36-12db-426e-9ce7-f910e6bd1ebc" name="Changes" comment="add sprite to players">
-      <change afterPath="$PROJECT_DIR$/A2_Code/Abril/tile/Tile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/A2_Code/Abril/tile/TileManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/maps/map01.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/boulder.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/grass.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/water.png" afterDir="false" />
+    <list default="true" id="0fa9fb36-12db-426e-9ce7-f910e6bd1ebc" name="Changes" comment="make first map, fix window sizing issues (RyiSnow ep5)">
+      <change afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/CollisionChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/maps/map02.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/brick_path.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/bush.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/dark_grass.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/dirt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/flower.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/hard_dirt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/hard_sand.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/ice.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/ice_brick_path.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/lava.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/light_grass.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/metal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/metal_wall.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/rock.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/sand.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/short_grass.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tiles/tall_grass.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/Engine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/GamePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/tile/TileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/tile/TileManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,6 +141,7 @@
       <recent name="$PROJECT_DIR$/src/main/resources/player" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/tiles" />
       <recent name="$PROJECT_DIR$/src/main/resources/player" />
       <recent name="$PROJECT_DIR$/A2_Code/Abril/main" />
     </key>
@@ -204,7 +218,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772762333725</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="make first map, fix window sizing issues">
+      <option name="closed" value="true" />
+      <created>1772767885404</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1772767885405</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -236,7 +258,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="organize project structure" />
     <MESSAGE value="add sprite to players" />
-    <option name="LAST_COMMIT_MESSAGE" value="add sprite to players" />
+    <MESSAGE value="make first map, fix window sizing issues (RyiSnow ep5)" />
+    <MESSAGE value="make first map, fix window sizing issues (RyiSnow ep5)" />
+    <option name="LAST_COMMIT_MESSAGE" value="make first map, fix window sizing issues (RyiSnow ep5)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

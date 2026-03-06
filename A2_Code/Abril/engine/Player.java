@@ -1,12 +1,13 @@
 package engine;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
 
 public class Player {
+    GamePanel gamePanel;
     int x, y;
     int speed;
     KeyHandler keyH;
@@ -16,11 +17,16 @@ public class Player {
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
     public String direction;
 
+    // collision
+    public Rectangle solidArea;
+    public boolean collisionOn = false;
+
     // animation vars
     public int spriteCounter = 0;
     public int spriteNum = 1;
 
-    public Player(int startX, int startY, KeyHandler keyH, boolean isPlayer1) {
+    public Player(GamePanel gamePanel, int startX, int startY, KeyHandler keyH, boolean isPlayer1) {
+        this.gamePanel = gamePanel;
         this.x = startX;
         this.y = startY;
         this.speed = 4;
@@ -28,6 +34,13 @@ public class Player {
         this.isPlayer1 = isPlayer1;
         this.direction = "down";
         getPlayerImage();
+
+        // define collision area
+        solidArea = new Rectangle();
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidArea.width = 32;
+        solidArea.height = 32;
     }
 
     public void getPlayerImage() {
@@ -48,20 +61,32 @@ public class Player {
     public void update() {
         boolean isMoving = false;
 
-
         if (isPlayer1) {
-            if (keyH.upPressed) { direction = "up"; y -= speed; isMoving = true; }
-            else if (keyH.downPressed) { direction = "down"; y += speed; isMoving = true; }
-            else if (keyH.leftPressed) { direction = "left"; x -= speed; isMoving = true; }
-            else if (keyH.rightPressed) { direction = "right"; x += speed; isMoving = true; }
+            if (keyH.upPressed) { direction = "up"; isMoving = true; }
+            else if (keyH.downPressed) { direction = "down"; isMoving = true; }
+            else if (keyH.leftPressed) { direction = "left"; isMoving = true; }
+            else if (keyH.rightPressed) { direction = "right"; isMoving = true; }
         } else {
-            if (keyH.upPressed2) { direction = "up"; y -= speed; isMoving = true; }
-            else if (keyH.downPressed2) { direction = "down"; y += speed; isMoving = true; }
-            else if (keyH.leftPressed2) { direction = "left"; x -= speed; isMoving = true; }
-            else if (keyH.rightPressed2) { direction = "right"; x += speed; isMoving = true; }
+            if (keyH.upPressed2) { direction = "up"; isMoving = true; }
+            else if (keyH.downPressed2) { direction = "down"; isMoving = true; }
+            else if (keyH.leftPressed2) { direction = "left"; isMoving = true; }
+            else if (keyH.rightPressed2) { direction = "right"; isMoving = true; }
         }
 
         if (isMoving) {
+            // check collision
+            collisionOn = false;
+            gamePanel.cChecker.checkTile(this);
+
+            if (!collisionOn) {
+                switch (direction) {
+                    case "up": y -= speed; break;
+                    case "down": y += speed; break;
+                    case "left": x -= speed; break;
+                    case "right": x += speed; break;
+                }
+            }
+
             spriteCounter ++; //inc until 12 ticks, then trigger animation change
             if (spriteCounter >= 12) {
                 if (spriteNum == 1) {
