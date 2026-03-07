@@ -1,4 +1,7 @@
-package engine;
+package entity;
+
+import engine.GamePanel;
+import engine.KeyHandler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -6,31 +9,19 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 
-public class Player {
+public class Player extends Entity {
     GamePanel gamePanel;
-    public int worldX, worldY; // Where they are on the 100x100 map
-    public int screenX, screenY; // Where they are on the 16x12 screen/ monitor
-    int speed;
+    public int screenX, screenY;
     KeyHandler keyH;
-    boolean isPlayer1; // Tells the object which keys to listen to
+    boolean isPlayer1;
 
-    // sprite vars
-    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
-    public String direction;
-
-    // collision
-    public Rectangle solidArea;
-    public boolean collisionOn = false;
-
-    // animation vars
-    public int spriteCounter = 0;
-    public int spriteNum = 1;
 
     public Player(GamePanel gamePanel, int startWorldX, int startWorldY, KeyHandler keyH, boolean isPlayer1) {
         this.gamePanel = gamePanel;
-        this.worldX = startWorldX; // true coordinates
+        this.worldX = startWorldX;
         this.worldY = startWorldY;
         this.speed = 4;
+
         this.keyH = keyH;
         this.isPlayer1 = isPlayer1;
         this.direction = "down";

@@ -32,7 +32,9 @@ public class Engine extends Application {
         Button startDungeonRaceBtn = new Button("Start Relic Hunt!");
 
         // 3. CLick button
-        startDungeonRaceBtn.setOnAction(e -> launchMiniAdventure());
+        // NEED TO BE CHANGED
+        //startDungeonRaceBtn.setOnAction(e -> launchMiniAdventure());
+        startDungeonRaceBtn.setOnAction(e -> launchMiniAdventure("FOREST"));
 
         mainMenu.getChildren().add(startDungeonRaceBtn);
         mainLayout.setCenter(mainMenu);
@@ -51,13 +53,13 @@ public class Engine extends Application {
         primaryStage.show();
     }
 
-    private void launchMiniAdventure() {
+    private void launchMiniAdventure(String realmName) {
         // 1. Create the JavaFX SwingNode
         SwingNode swingNode = new SwingNode();
 
         // 2. Create the Swing GamePanel on the Swing Thread
         SwingUtilities.invokeLater(() -> {
-            GamePanel gamePanel = new GamePanel();
+            GamePanel gamePanel = new GamePanel(realmName);
             swingNode.setContent(gamePanel); // Put the game panel inside the portal
             gamePanel.startGameThread(); // Start the tutorial's game loop
 

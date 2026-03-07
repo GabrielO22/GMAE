@@ -4,18 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0fa9fb36-12db-426e-9ce7-f910e6bd1ebc" name="Changes" comment="CollisionChecker and testing new tiles">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/maps/desert_relic_hunt.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/maps/forest_relic_hunt.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/maps/ice_relic_hunt.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/maps/lava_relic_hunt.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/maps/map03.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/maps/mud_relic_hunt" afterDir="false" />
+    <list default="true" id="0fa9fb36-12db-426e-9ce7-f910e6bd1ebc" name="Changes" comment="create mini maps for relic hunt, camera working for player 1 only">
+      <change afterPath="$PROJECT_DIR$/A2_Code/Abril/entity/Entity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/CollisionChecker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/Engine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/entity/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/A2_Code/Abril/tile/TileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/tile/TileManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -141,7 +136,7 @@
       <module name="GMAE" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="engine.*" />
+          <option name="PATTERN" value="entity.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -154,7 +149,7 @@
       <module name="GMAE" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="engine.*" />
+          <option name="PATTERN" value="entity.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -223,7 +218,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772833058587</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="create mini maps for relic hunt, camera working for player 1 only">
+      <option name="closed" value="true" />
+      <created>1772855630641</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1772855630641</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -258,7 +261,8 @@
     <MESSAGE value="make first map, fix window sizing issues (RyiSnow ep5)" />
     <MESSAGE value="make first map, fix window sizing issues (RyiSnow ep5)" />
     <MESSAGE value="CollisionChecker and testing new tiles" />
-    <option name="LAST_COMMIT_MESSAGE" value="CollisionChecker and testing new tiles" />
+    <MESSAGE value="create mini maps for relic hunt, camera working for player 1 only" />
+    <option name="LAST_COMMIT_MESSAGE" value="create mini maps for relic hunt, camera working for player 1 only" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

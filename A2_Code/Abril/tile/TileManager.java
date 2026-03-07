@@ -13,7 +13,7 @@ public class TileManager {
     public Tile[] tile;
     public int[][] mapTileNum;
 
-    public TileManager(GamePanel gamePanel) {
+    public TileManager(GamePanel gamePanel, String currentRealm) {
         this.gamePanel = gamePanel;
         tile = new Tile[20]; // num of tiles we can have
 
@@ -22,19 +22,17 @@ public class TileManager {
 
         getTileImage();
 
-        // THIS MUST BE TRANSFERRED TO THE BACK END
-        String[] biomeMaps = {
-                "/maps/forest_relic_hunt.txt",
-                "/maps/desert_relic_hunt.txt",
-                "/maps/ice_relic_hunt.txt",
-                "/maps/lava_relic_hunt.txt",
-                "/maps/mud_relic_hunt.txt"
-        };
+        String mapToLoad = "";
+        switch (currentRealm) {
+            case "FOREST": mapToLoad = "/maps/forest_relic_hunt.txt"; break;
+            case "LAVA": mapToLoad = "/maps/lava_relic_hunt.txt"; break;
+            case "ICE": mapToLoad = "/maps/ice_relic_hunt.txt"; break;
+            case "DESERT": mapToLoad = "/maps/desert_relic_hunt.txt"; break;
+            case "MUD": mapToLoad = "/maps/mud_relic_hunt.txt"; break;
+            default: mapToLoad = "/maps/forest_relic_hunt.txt"; // Fallback
+        }
 
-        java.util.Random rand = new java.util.Random();
-        int randomIndex = rand.nextInt(biomeMaps.length);
-        String chosenMap = biomeMaps[randomIndex];
-        loadMap(chosenMap);
+        loadMap(mapToLoad);
     }
 
     public void getTileImage() {

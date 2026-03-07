@@ -1,5 +1,7 @@
 package engine;
 
+import entity.Player;
+
 public class CollisionChecker {
     GamePanel gamePanel;
 

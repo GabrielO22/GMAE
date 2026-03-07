@@ -1,5 +1,6 @@
 package engine;
 
+import entity.Player;
 import tile.TileManager;
 
 import javax.swing.JPanel;
@@ -24,11 +25,12 @@ public class GamePanel extends JPanel implements Runnable {
     // WORLD SETTINGS
     public final int maxWorldCol = 25;
     public final int maxWorldRow = 25;
-    public final int worldWidth = tileSize * maxWorldCol;
-    public final int worldHeight = tileSize * maxWorldRow;
+    //public final int worldWidth = tileSize * maxWorldCol;
+    //public final int worldHeight = tileSize * maxWorldRow;
 
     int FPS = 60;
-    TileManager tileM = new TileManager(this);
+    public String currentRealm;
+    TileManager tileM;
     public CollisionChecker cChecker = new CollisionChecker(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
@@ -36,7 +38,10 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player1;
     Player player2;
 
-    public GamePanel() {
+    public GamePanel(String realmName) {
+        this.currentRealm = realmName;
+        tileM = new TileManager(this, currentRealm);
+
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true); // Improves rendering performance
