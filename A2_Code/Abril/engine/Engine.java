@@ -29,7 +29,7 @@ public class Engine extends Application {
         // 2. Create a simple JavaFX Main Menu
         VBox mainMenu = new VBox(10);
         mainMenu.setAlignment(javafx.geometry.Pos.CENTER); // center the button
-        Button startDungeonRaceBtn = new Button("Start Game!");
+        Button startDungeonRaceBtn = new Button("Start Relic Hunt!");
 
         // 3. CLick button
         startDungeonRaceBtn.setOnAction(e -> launchMiniAdventure());

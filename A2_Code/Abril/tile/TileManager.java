@@ -9,19 +9,32 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class TileManager {
-    GamePanel gp;
+    GamePanel gamePanel;
     public Tile[] tile;
     public int[][] mapTileNum;
 
-    public TileManager(GamePanel gp) {
-        this.gp = gp;
+    public TileManager(GamePanel gamePanel) {
+        this.gamePanel = gamePanel;
         tile = new Tile[20]; // num of tiles we can have
 
         // This 2D array will hold the numbers from our text file
-        mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
+        mapTileNum = new int[gamePanel.maxWorldCol][gamePanel.maxWorldRow];
 
         getTileImage();
-        loadMap("/maps/map02.txt");
+
+        // THIS MUST BE TRANSFERRED TO THE BACK END
+        String[] biomeMaps = {
+                "/maps/forest_relic_hunt.txt",
+                "/maps/desert_relic_hunt.txt",
+                "/maps/ice_relic_hunt.txt",
+                "/maps/lava_relic_hunt.txt",
+                "/maps/mud_relic_hunt.txt"
+        };
+
+        java.util.Random rand = new java.util.Random();
+        int randomIndex = rand.nextInt(biomeMaps.length);
+        String chosenMap = biomeMaps[randomIndex];
+        loadMap(chosenMap);
     }
 
     public void getTileImage() {
@@ -88,6 +101,7 @@ public class TileManager {
             // 15 - R
             tile[15] = new Tile();
             tile[15].image = ImageIO.read(getClass().getResourceAsStream("/tiles/rock.png"));
+            tile[15].collision = true;
 
             // 16 - S
             tile[16] = new Tile();
@@ -99,6 +113,7 @@ public class TileManager {
             // 18 - T
             tile[18] = new Tile();
             tile[18].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tall_grass.png"));
+            tile[18].collision = true;
 
             // 19 - W
             tile[19] = new Tile();
@@ -117,16 +132,16 @@ public class TileManager {
             int col = 0;
             int row = 0;
 
-            while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
+            while (col < gamePanel.maxWorldCol && row < gamePanel.maxWorldRow) {
                 String line = br.readLine();
 
-                while (col < gp.maxScreenCol) {
-                    String[] numbers = line.split(" ");
+                while (col < gamePanel.maxWorldCol) {
+                    String[] numbers = line.trim().split("\\s+");
                     int num = Integer.parseInt(numbers[col]);
                     mapTileNum[col][row] = num;
                     col++;
                 }
-                if (col == gp.maxScreenCol) {
+                if (col == gamePanel.maxWorldCol) {
                     col = 0;
                     row++;
                 }
@@ -138,25 +153,33 @@ public class TileManager {
     }
 
     public void draw(Graphics2D g2) {
-        int col = 0;
-        int row = 0;
-        int x = 0;
-        int y = 0;
+        int worldCol = 0;
+        int worldRow = 0;
 
-        while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
-            int tileNum = mapTileNum[col][row]; // Check what number is at this grid spot
+        while (worldCol < gamePanel.maxWorldCol && worldRow < gamePanel.maxWorldRow) {
+            // where is our tile on the real map
+            int tileNum = mapTileNum[worldCol][worldRow];
+            int worldX = worldCol * gamePanel.tileSize;
+            int worldY = worldRow * gamePanel.tileSize;
 
-            // Draw the corresponding image
-            g2.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
+            // where should tile be drawn relative to p1
+            int screenX = worldX - gamePanel.player1.worldX + gamePanel.player1.screenX;
+            int screenY = worldY - gamePanel.player1.worldY + gamePanel.player1.screenY;
 
-            col++;
-            x += gp.tileSize;
+            // only draw tile if it is visible within the screen
+            if (worldX + gamePanel.tileSize > gamePanel.player1.worldX - gamePanel.player1.screenX &&
+                    worldX - gamePanel.tileSize < gamePanel.player1.worldX + gamePanel.player1.screenX &&
+                    worldY + gamePanel.tileSize > gamePanel.player1.worldY - gamePanel.player1.screenY &&
+                    worldY - gamePanel.tileSize < gamePanel.player1.worldY + gamePanel.player1.screenY) {
+                // Draw the corresponding image
+                g2.drawImage(tile[tileNum].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+            }
 
-            if (col == gp.maxScreenCol) {
-                col = 0;
-                x = 0;
-                row++;
-                y += gp.tileSize;
+            // Move to the next column
+            worldCol++;
+            if (worldCol == gamePanel.maxWorldCol) {
+                worldCol = 0;
+                worldRow++;
             }
         }
     }

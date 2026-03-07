@@ -10,15 +10,22 @@ import java.awt.Graphics2D;
 
 public class GamePanel extends JPanel implements Runnable {
 
-    // SCREEN SETTINGS
+    // SCALE
     final int originalTileSize = 16; // 16x16 tile
     final int scale = 3;
     public final int tileSize = originalTileSize * scale; // 48x48 tile
 
+    // SCREEN SETTINGS
     public final int maxScreenCol = 16; // 4 by 3 ratio
     public final int maxScreenRow = 12;
     public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
+
+    // WORLD SETTINGS
+    public final int maxWorldCol = 25;
+    public final int maxWorldRow = 25;
+    public final int worldWidth = tileSize * maxWorldCol;
+    public final int worldHeight = tileSize * maxWorldRow;
 
     int FPS = 60;
     TileManager tileM = new TileManager(this);
@@ -26,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
 
-    Player player1;
+    public Player player1;
     Player player2;
 
     public GamePanel() {
@@ -37,8 +44,8 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true); // required to receive key inputs
 
 
-        player1 = new Player(this, 100, 100, keyH, true);
-        player2 = new Player(this, 500, 100, keyH, false);
+        player1 = new Player(this, 48, 48, keyH, true);
+        player2 = new Player(this, 96, 48, keyH, false);
     }
 
     public void startGameThread() {

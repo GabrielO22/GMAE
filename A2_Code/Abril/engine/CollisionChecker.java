@@ -9,10 +9,10 @@ public class CollisionChecker {
 
     public void checkTile (Player player) {
         // pixel hit box
-        int entityLeftX = player.x + player.solidArea.x;
-        int entityRightX = player.x + player.solidArea.x + player.solidArea.width;
-        int entityTopY = player.y + player.solidArea.y;
-        int entityBottomY = player.y + player.solidArea.y + player.solidArea.height;
+        int entityLeftX = player.worldX + player.solidArea.x;
+        int entityRightX = player.worldX + player.solidArea.x + player.solidArea.width;
+        int entityTopY = player.worldY + player.solidArea.y;
+        int entityBottomY = player.worldY + player.solidArea.y + player.solidArea.height;
 
         // grid (row/column) hit box
         int entityLeftCol = entityLeftX / gamePanel.tileSize;

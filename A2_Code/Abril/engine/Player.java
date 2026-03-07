@@ -8,7 +8,8 @@ import javax.imageio.ImageIO;
 
 public class Player {
     GamePanel gamePanel;
-    int x, y;
+    public int worldX, worldY; // Where they are on the 100x100 map
+    public int screenX, screenY; // Where they are on the 16x12 screen/ monitor
     int speed;
     KeyHandler keyH;
     boolean isPlayer1; // Tells the object which keys to listen to
@@ -25,14 +26,26 @@ public class Player {
     public int spriteCounter = 0;
     public int spriteNum = 1;
 
-    public Player(GamePanel gamePanel, int startX, int startY, KeyHandler keyH, boolean isPlayer1) {
+    public Player(GamePanel gamePanel, int startWorldX, int startWorldY, KeyHandler keyH, boolean isPlayer1) {
         this.gamePanel = gamePanel;
-        this.x = startX;
-        this.y = startY;
+        this.worldX = startWorldX; // true coordinates
+        this.worldY = startWorldY;
         this.speed = 4;
         this.keyH = keyH;
         this.isPlayer1 = isPlayer1;
         this.direction = "down";
+
+        // --- CAMERA SETUP ---
+        if (isPlayer1) {
+            // Player 1 is the camera anchor. Lock them to the center of the screen!
+            screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
+            screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
+        } else {
+            // Player 2's screen position will be calculated dynamically in the draw loop
+            screenX = 0;
+            screenY = 0;
+        }
+
         getPlayerImage();
 
         // define collision area
@@ -80,14 +93,14 @@ public class Player {
 
             if (!collisionOn) {
                 switch (direction) {
-                    case "up": y -= speed; break;
-                    case "down": y += speed; break;
-                    case "left": x -= speed; break;
-                    case "right": x += speed; break;
+                    case "up": worldY -= speed; break;
+                    case "down": worldY += speed; break;
+                    case "left": worldX -= speed; break;
+                    case "right": worldX += speed; break;
                 }
             }
 
-            spriteCounter ++; //inc until 12 ticks, then trigger animation change
+            spriteCounter ++; //increment until 12 ticks, then trigger animation change
             if (spriteCounter >= 12) {
                 if (spriteNum == 1) {
                     spriteNum = 2;
@@ -103,6 +116,11 @@ public class Player {
 
     public void draw(Graphics2D g2, int tileSize) {
         BufferedImage image = null;
+
+        if (!isPlayer1) {
+            screenX = worldX - gamePanel.player1.worldX + gamePanel.player1.screenX;
+            screenY = worldY - gamePanel.player1.worldY + gamePanel.player1.screenY;
+        }
 
         switch (direction) {
             case "up":
@@ -123,6 +141,6 @@ public class Player {
                 break;
         }
 
-        g2.drawImage(image, x, y, tileSize, tileSize, null);
+        g2.drawImage(image, screenX, screenY, tileSize, tileSize, null);
     }
 }
