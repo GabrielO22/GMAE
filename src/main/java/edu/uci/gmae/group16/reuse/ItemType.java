@@ -1,7 +1,7 @@
 package edu.uci.gmae.group16.reuse;
 
 public enum ItemType {
-    RELIC,
+    WEAPON,
     CONSUMABLE,
     BUFF
 }

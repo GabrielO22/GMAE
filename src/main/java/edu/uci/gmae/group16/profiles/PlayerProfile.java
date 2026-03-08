@@ -6,7 +6,7 @@ import edu.uci.gmae.group16.reuse.Character;
 public class PlayerProfile {
     private final UUID playerID;
     private String playerName;
-    private int relicsCollected;
+    private int numRelicsCollected;
     private int duelsWon;
     private int duelsLost;
 
@@ -34,11 +34,11 @@ public class PlayerProfile {
     }
 
     public int getRelicsCollected() {
-        return relicsCollected;
+        return numRelicsCollected;
     }
 
     public void addRelicCollected() {
-        relicsCollected ++;
+        numRelicsCollected ++;
     }
 
     public int getDuelsWon() {
