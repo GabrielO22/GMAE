@@ -1,6 +1,7 @@
 package edu.uci.gmae.group16.reuse;
 
 import edu.uci.gmae.group16.characters.CharacterType;
+import edu.uci.gmae.group16.items.Buff;
 
 import java.util.*;
 
@@ -11,6 +12,8 @@ public class Character {
     private CharacterType classType;   // Changed classType to its own class to store additional data about what different classes actually mean
 
     private final Inventory inventory;
+    private final List<Buff> activeBuffs;
+    private final Map<String, Object> attributes;
 
     // All below attributes were added for the battle system
     private int maxHP;
@@ -18,18 +21,22 @@ public class Character {
     private int attack;
     private int defence;
     private double speed;
+    private double baseCritRate;
 
     public Character() {    // Character now takes no inputs, as the user gets to decide name and classType after creation
         id = UUID.randomUUID();
         name = "";
         classType = null;
         inventory = new Inventory();
+        activeBuffs = new ArrayList<>();
+        attributes = new HashMap<>();
 
         maxHP = 0;
         currentHP = maxHP;
         attack = 0;
         defence = 0;
         speed = 0;
+        baseCritRate = 0.05;
     }
     public UUID getID() {
         return id;
@@ -89,6 +96,44 @@ public class Character {
     }
     public void modifySpeed(double modification) {
         speed += modification;
+    }
+    public double getCritRate() { return baseCritRate; }
+    public void modifyCritRate(double modification) { baseCritRate += modification; }
+
+    public void addBuff(Buff buff) {
+        buff.apply(this);
+        activeBuffs.add(buff);
+    }
+
+    public void updateBuffs() {
+        List<Buff> expiredBuffs = new ArrayList<>();
+        for (Buff buff : activeBuffs) {
+            buff.update();
+            if (buff.getDuration() <= 0) {
+                expiredBuffs.add(buff);
+            }
+        }
+
+        for (Buff buff : expiredBuffs) {
+            buff.remove(this);
+            activeBuffs.remove(buff);
+        }
+    }
+
+    public void setAttribute(String key, Object value) {
+        this.attributes.put(key, value);
+    }
+
+    public Object getAttribute(String key) {
+        return this.attributes.get(key);
+    }
+
+    public boolean hasAttribute(String key) {
+        return this.attributes.containsKey(key);
+    }
+
+    public void removeAttribute(String key) {
+        this.attributes.remove(key);
     }
 }
 
