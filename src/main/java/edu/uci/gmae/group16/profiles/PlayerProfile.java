@@ -13,8 +13,8 @@ public class PlayerProfile {
     private final List<Character> characters;
     private final int MAX_CHARACTERS = 3;
 
-    public PlayerProfile(UUID playerID) {
-        this.playerID = playerID;
+    public PlayerProfile() {
+        this.playerID = UUID.randomUUID();
         characters = new LinkedList<>();
         for (int i = 0; i < MAX_CHARACTERS; i++) {
             characters.add(new Character());

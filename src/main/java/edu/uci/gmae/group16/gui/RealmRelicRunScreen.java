@@ -1,4 +1,4 @@
-package edu.uci.gmae.group16.adventures;
+package edu.uci.gmae.group16.gui;
 
 import edu.uci.gmae.group16.app.Main;
 import javafx.geometry.Pos;
@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class ItemCollectionAdventure {
+public class RealmRelicRunScreen {
     public void start(Stage stage) {
         Label label = new Label("Realm Relic Run");
         Button backButton = new Button("Return to Menu");

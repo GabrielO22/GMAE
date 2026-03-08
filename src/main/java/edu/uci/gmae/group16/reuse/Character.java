@@ -25,6 +25,7 @@ public class Character {
         classType = null;
         inventory = new Inventory();
 
+        // below is for battle system
         maxHP = 0;
         currentHP = maxHP;
         attack = 0;

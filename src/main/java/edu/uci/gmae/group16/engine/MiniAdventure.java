@@ -2,16 +2,16 @@ package edu.uci.gmae.group16.engine;
 
 import edu.uci.gmae.group16.engine.input.Command;
 import edu.uci.gmae.group16.engine.state.GameState;
+import edu.uci.gmae.group16.engine.state.PlayerNumber;
 import edu.uci.gmae.group16.profiles.PlayerProfile;
 
 import java.util.*;
 
 public interface MiniAdventure {
-    UUID id();
-    String name();
+    UUID getID();
+    String getName();
 
-    void initialize(PlayerProfile p1, PlayerProfile p2);
-    void handleCommand(int playerIndex, Command command);
+    void handleCommand(PlayerNumber playerNumber, Command command);
 
     // Turn-based: engine calls this once after both players choose actions
     // Real-time: engine calls this once per tick
@@ -20,7 +20,4 @@ public interface MiniAdventure {
     GameState getGameState();
 
     boolean isComplete();
-    String getResultSummary();
-
-    void reset();
 }
