@@ -75,6 +75,9 @@ public class Character {
     public int getCurrentHP() {
         return currentHP;
     }
+    public void modifyCurrentHP(int modification){
+        currentHP += modification;
+    }
     public int takeDamage(int damage) {
         currentHP = Math.max(0, Math.min(currentHP - damage + defence, currentHP));
         return -1 * Math.min(defence - damage, 0); // returns damage actually dealt for display use
@@ -97,8 +100,12 @@ public class Character {
     public void modifySpeed(double modification) {
         speed += modification;
     }
-    public double getCritRate() { return baseCritRate; }
-    public void modifyCritRate(double modification) { baseCritRate += modification; }
+    public double getCritRate() {
+        return baseCritRate;
+    }
+    public void modifyCritRate(double modification) {
+        baseCritRate += modification;
+    }
 
     public void addBuff(Buff buff) {
         buff.apply(this);
