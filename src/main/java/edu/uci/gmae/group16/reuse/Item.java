@@ -2,27 +2,25 @@ package edu.uci.gmae.group16.reuse;
 
 import edu.uci.gmae.group16.items.ItemEffect;
 
+import java.util.UUID;
+
 public class Item {
+    private String itemID;
     private String name;
-    private int quantity;
     private ItemType type;
     private ItemEffect effect;
 
-    public Item(String name, int quantity, ItemType type, ItemEffect effect) {
+    public Item(String name, ItemType type, ItemEffect effect) {
+        this.itemID = UUID.randomUUID().toString();
         this.name = name;
-        this.quantity = quantity;
         this.type = type;
         this.effect = effect;
     }
 
-    public String getName() {
-        return name;
+    public String getItemID() {
+        return itemID;
     }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
+    public String getName() { return name; }
     public ItemType getType() {
         return type;
     }
