@@ -12,7 +12,7 @@ public class HealEffect implements ItemEffect{
     @Override
     public void apply(Character target) {
         int healAmount = (int) (target.getMaxHP() * this.percentage);
-        //target.takeDamage(-healAmount);
+        target.modifyCurrentHP(healAmount);
         System.out.println(target.getName() + " restored " + healAmount + " HP!");
     }
 }

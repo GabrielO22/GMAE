@@ -11,7 +11,7 @@ public class AddBuffEffect implements ItemEffect{
 
     @Override
     public void apply(Character target) {
-        //target.addBuff(this.buff);
+        target.addBuff(this.buff);
         System.out.println(target.getName() + " gained the effect of " + buff.getName() + "!");
     }
 }
