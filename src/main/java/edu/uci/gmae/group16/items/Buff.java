@@ -1,6 +1,7 @@
 package edu.uci.gmae.group16.items;
 
 import java.util.function.Consumer;
+import edu.uci.gmae.group16.reuse.Character;
 
 public class Buff {
     private String name;

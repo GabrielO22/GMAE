@@ -1,5 +1,7 @@
 package edu.uci.gmae.group16.items;
 
+import edu.uci.gmae.group16.reuse.Character;
+
 public class HealEffect implements ItemEffect{
     private final double percentage;
 
@@ -8,9 +10,9 @@ public class HealEffect implements ItemEffect{
     }
 
     @Override
-    public void apply(edu.uci.gmae.group16.reuse.Character target) {
+    public void apply(Character target) {
         int healAmount = (int) (target.getMaxHP() * this.percentage);
-        //target.takeDamage(-healAmount);
+        target.modifyCurrentHP(healAmount);
         System.out.println(target.getName() + " restored " + healAmount + " HP!");
     }
 }
