@@ -1,6 +1,6 @@
 package items;
 
-import edu.uci.gmae.group16.reuse.Character;
+import reuse.Character;
 
 public class AddBuffEffect implements ItemEffect{
     private final Buff buff;

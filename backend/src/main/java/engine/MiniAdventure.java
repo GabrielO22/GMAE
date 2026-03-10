@@ -1,6 +1,6 @@
 package engine;
 
-import edu.uci.gmae.group16.profiles.PlayerProfile;
+import profiles.PlayerProfile;
 import engine.input.Command;
 import engine.state.GameState;
 
