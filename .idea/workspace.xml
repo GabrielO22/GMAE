@@ -4,14 +4,80 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0fa9fb36-12db-426e-9ce7-f910e6bd1ebc" name="Changes" comment="create mini maps for relic hunt, camera working for player 1 only">
-      <change afterPath="$PROJECT_DIR$/A2_Code/Abril/entity/Entity.java" afterDir="false" />
+    <list default="true" id="0fa9fb36-12db-426e-9ce7-f910e6bd1ebc" name="Changes" comment="huge restructuring, migrate from maven to gradle">
+      <change afterPath="$PROJECT_DIR$/backend/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/CollisionChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/engine/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/entity/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/tile/TileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/A2_Code/Abril/tile/TileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/java/engine/CollisionChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/java/engine/Engine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/java/engine/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/java/engine/KeyHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/engine/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/java/engine/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/entity/Entity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/entity/Player.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/tile/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/java/tile/Tile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/A2_Code/Abril/tile/TileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/java/tile/TileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GMAE.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GMAE/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GMAE/AuthorizationService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GMAE/Campaign.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GMAE/Character.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GMAE/GuildQuest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GMAE/GuildQuestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GMAE/Inventory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GMAE/Item.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GMAE/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GMAE/PermissionLevel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GMAE/QuestEvent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GMAE/Realm.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GMAE/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GMAE/Visibility.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/maven/archetype.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/archetype-resources/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/main/java/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/test/java/AppTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/maps/desert_relic_hunt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/maps/desert_relic_hunt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/maps/forest_relic_hunt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/maps/forest_relic_hunt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/maps/ice_relic_hunt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/maps/ice_relic_hunt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/maps/lava_relic_hunt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/maps/lava_relic_hunt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/maps/map01.txt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/maps/map01.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/maps/map02.txt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/maps/map02.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/maps/map03.txt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/maps/map03.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/maps/mud_relic_hunt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/maps/mud_relic_hunt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/player/hamtaro_down_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/player/hamtaro_down_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/player/hamtaro_down_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/player/hamtaro_down_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/player/hamtaro_left_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/player/hamtaro_left_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/player/hamtaro_left_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/player/hamtaro_left_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/player/hamtaro_right_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/player/hamtaro_right_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/player/hamtaro_right_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/player/hamtaro_right_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/player/hamtaro_up_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/player/hamtaro_up_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/player/hamtaro_up_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/player/hamtaro_up_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/boulder.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/boulder.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/brick_path.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/brick_path.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/bush.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/bush.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/dark_grass.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/dark_grass.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/dirt.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/dirt.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/flower.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/flower.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/grass.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/grass.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/hard_dirt.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/hard_dirt.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/hard_sand.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/hard_sand.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/ice.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/ice.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/ice_brick_path.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/ice_brick_path.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/lava.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/lava.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/light_grass.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/light_grass.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/metal.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/metal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/metal_wall.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/metal_wall.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/rock.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/rock.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/sand.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/sand.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/short_grass.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/short_grass.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/tall_grass.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/tall_grass.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiles/water.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/resources/tiles/water.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +144,7 @@
     &quot;accountId&quot;: &quot;c5c4c9b5-4437-4af7-90aa-69bf64207a36&quot;
   }
 }</component>
+  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="$USER_HOME$/.gradle/wrapper/dists/gradle-9.4.0-bin/lcvyxq3t37f6mx9miaydrrgs/gradle-9.4.0" javaHome="/Library/Java/JavaVirtualMachines/jdk-24.jdk/Contents/Home" gradleVersion="9.4.0" />
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
   </component>
@@ -94,6 +161,8 @@
     "Application.Engine.executor": "Run",
     "Application.Main.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
+    "Gradle.GMAE:frontend [:frontend:engine.Engine.main()].executor": "Run",
+    "Gradle.GMAE:frontend [:frontend:engine.Main.main()].executor": "Run",
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Repository.Attach.Annotations": "false",
@@ -103,6 +172,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "SHELLCHECK.PATH": "/Users/adelg/Library/Application Support/JetBrains/IntelliJIdea2025.2/plugins/Shell Script/shellcheck",
     "git-widget-placeholder": "abril__work__branch",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/adelg/IdeaProjects/GMAE/src/main/resources/tiles",
@@ -125,31 +195,20 @@
       <recent name="$PROJECT_DIR$/src/main/resources/player" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources/tiles" />
-      <recent name="$PROJECT_DIR$/src/main/resources/player" />
-      <recent name="$PROJECT_DIR$/A2_Code/Abril/main" />
+      <recent name="$PROJECT_DIR$/frontend/src/main" />
+      <recent name="$PROJECT_DIR$/shared/src/main/java" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/frontend/src/main/java" />
+      <recent name="$PROJECT_DIR$/frontend/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="Engine" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="engine.Engine" />
-      <module name="GMAE" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="entity.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="engine.Main" />
-      <module name="GMAE" />
+      <module name="GMAE.frontend.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="entity.*" />
+          <option name="PATTERN" value="engine.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -171,7 +230,6 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Engine" />
       </list>
     </recent_temporary>
   </component>
@@ -226,7 +284,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772855630641</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="defined logic for choosing realm through arg passing, create entity">
+      <option name="closed" value="true" />
+      <created>1772862161505</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1772862161505</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -262,7 +328,9 @@
     <MESSAGE value="make first map, fix window sizing issues (RyiSnow ep5)" />
     <MESSAGE value="CollisionChecker and testing new tiles" />
     <MESSAGE value="create mini maps for relic hunt, camera working for player 1 only" />
-    <option name="LAST_COMMIT_MESSAGE" value="create mini maps for relic hunt, camera working for player 1 only" />
+    <MESSAGE value="defined logic for choosing realm through arg passing, create entity" />
+    <MESSAGE value="huge restructuring, migrate from maven to gradle" />
+    <option name="LAST_COMMIT_MESSAGE" value="huge restructuring, migrate from maven to gradle" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
