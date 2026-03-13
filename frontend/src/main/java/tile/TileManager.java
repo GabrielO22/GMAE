@@ -23,7 +23,7 @@ public class TileManager {
         getTileImage();
 
         String mapToLoad = "";
-        switch (currentRealm) {
+        switch (currentRealm.toUpperCase()) {
             case "FOREST": mapToLoad = "/maps/forest_relic_hunt.txt"; break;
             case "LAVA": mapToLoad = "/maps/lava_relic_hunt.txt"; break;
             case "ICE": mapToLoad = "/maps/ice_relic_hunt.txt"; break;
@@ -164,12 +164,12 @@ public class TileManager {
             int screenX = worldX - gamePanel.player1.worldX + gamePanel.player1.screenX;
             int screenY = worldY - gamePanel.player1.worldY + gamePanel.player1.screenY;
 
-            // only draw tile if it is visible within the screen
-            if (worldX + gamePanel.tileSize > gamePanel.player1.worldX - gamePanel.player1.screenX &&
-                    worldX - gamePanel.tileSize < gamePanel.player1.worldX + gamePanel.player1.screenX &&
-                    worldY + gamePanel.tileSize > gamePanel.player1.worldY - gamePanel.player1.screenY &&
-                    worldY - gamePanel.tileSize < gamePanel.player1.worldY + gamePanel.player1.screenY) {
-                // Draw the corresponding image
+            // only draw tile if it is visible within the screen + a little extra
+            if (worldX + gamePanel.tileSize > gamePanel.player1.worldX - gamePanel.player1.screenX - gamePanel.tileSize &&
+                    worldX - gamePanel.tileSize < gamePanel.player1.worldX + gamePanel.player1.screenX + gamePanel.tileSize &&
+                    worldY + gamePanel.tileSize > gamePanel.player1.worldY - gamePanel.player1.screenY - gamePanel.tileSize &&
+                    worldY - gamePanel.tileSize < gamePanel.player1.worldY + gamePanel.player1.screenY + gamePanel.tileSize) {
+
                 g2.drawImage(tile[tileNum].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
             }
 

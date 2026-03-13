@@ -12,6 +12,7 @@ import javax.swing.SwingUtilities;
 
 public class Engine extends Application {
     private BorderPane mainLayout;
+    private Stage window;
 
     public static void main(String[] args) {
         launch(args); // This launches the JavaFX application
@@ -19,6 +20,7 @@ public class Engine extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        this.window = primaryStage;
         primaryStage.setTitle("GuildQuest Mini-Adventure Environment");
 
         // Initialize backend logic
@@ -33,6 +35,12 @@ public class Engine extends Application {
 
         Scene scene = new Scene(mainLayout, 800, 600);
         primaryStage.setScene(scene);
+
+        primaryStage.setOnCloseRequest(e -> {
+            System.out.println("Closing application...");
+            System.exit(0); // This forcefully terminates the JVM
+        });
+
         primaryStage.show();
     }
 
@@ -42,16 +50,23 @@ public class Engine extends Application {
 
         // Create the Swing GamePanel on the Swing Thread
         SwingUtilities.invokeLater(() -> {
-            GamePanel gamePanel = new GamePanel(realmName);
-            swingNode.setContent(gamePanel); // Put the game panel inside the portal
-            gamePanel.startGameThread(); // Start the tutorial's game loop
+            try {
+                GamePanel gamePanel = new GamePanel(realmName);
+                swingNode.setContent(gamePanel); // Put the game panel inside the portal
+                gamePanel.startGameThread(); // Start the tutorial's game loop
 
-            Platform.runLater(() -> {
-                mainLayout.setCenter(swingNode);
-                Stage stage = (Stage) mainLayout.getScene().getWindow();
-                stage.sizeToScene();
-                stage.centerOnScreen(); // Recenter the window
-            });
+                Platform.runLater(() -> {
+                    // Put main layout back on screen
+                    window.getScene().setRoot(mainLayout);
+                    mainLayout.setCenter(swingNode);
+
+                    window.sizeToScene();
+                    window.centerOnScreen(); // Recenter the window using saved window
+                });
+            } catch (Exception ex) { // <-- ADD THIS CATCH BLOCK
+                System.out.println("CRASH LOADING MAP: " + realmName);
+                ex.printStackTrace();
+            }
         });
 
         // Give the game panel focus so WASD/arrow keys work

@@ -4,10 +4,7 @@ import entity.Player;
 import tile.TileManager;
 
 import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -25,8 +22,7 @@ public class GamePanel extends JPanel implements Runnable {
     // WORLD SETTINGS
     public final int maxWorldCol = 25;
     public final int maxWorldRow = 25;
-    //public final int worldWidth = tileSize * maxWorldCol;
-    //public final int worldHeight = tileSize * maxWorldRow;
+
 
     int FPS = 60;
     public String currentRealm;
@@ -55,6 +51,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void startGameThread() {
         gameThread = new Thread(this);
+        gameThread.setDaemon(true);
         gameThread.start();
     }
 
@@ -94,5 +91,6 @@ public class GamePanel extends JPanel implements Runnable {
         player2.draw(g2, tileSize);
 
         g2.dispose(); // Good practice to save memory
+        Toolkit.getDefaultToolkit().sync(); // force display to sync with frame rate of game
     }
 }

@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.Random;
+
 
 // goal: consolidate relic and runes screen setup, avoid duplicate code
 public class AdventureSetupScreen {
@@ -38,7 +40,18 @@ public class AdventureSetupScreen {
 
         // Start button launches the specific realm passed in the constructor
         startButton.setOnAction(e -> {
-            engine.launchMiniAdventure(realmName);
+            String mapToLaunch = realmName;
+
+            // If the realm is set to RANDOM, pick one from the array
+            if (realmName.equals("RANDOM")) {
+                String[] availableMaps = {"FOREST", "LAVA", "ICE", "DESERT", "MUD"};
+                int randomIndex = new Random().nextInt(availableMaps.length);
+                mapToLaunch = availableMaps[randomIndex];
+
+                System.out.println("Randomly selected map: " + mapToLaunch); // Good for debugging
+            }
+
+            engine.launchMiniAdventure(mapToLaunch);
         });
 
         // Back button logic stays the same

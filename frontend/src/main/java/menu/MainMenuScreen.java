@@ -35,7 +35,7 @@ public class MainMenuScreen {
         // When clicked, it tells Engine to launch the correct Swing GamePanel bridge
         itemCollectionButton.setOnAction(e -> {
             AdventureSetupScreen relicScreen = new AdventureSetupScreen(
-                    stage, engine, "Realm Relic Run Setup", "Start Game!", "FOREST"
+                    stage, engine, "Realm Relic Run Setup", "Start Game!", "RANDOM"
             );
             stage.getScene().setRoot(relicScreen.getLayout());
         });
