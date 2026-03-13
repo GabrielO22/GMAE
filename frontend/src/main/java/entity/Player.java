@@ -26,8 +26,8 @@ public class Player extends Entity {
         this.isPlayer1 = isPlayer1;
         this.direction = "down";
 
-        // --- CAMERA SETUP ---
-        if (isPlayer1) {
+        // CAMERA SETUP (depreciated)
+        /*if (isPlayer1) {
             // Player 1 is the camera anchor. Lock them to the center of the screen!
             screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
             screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
@@ -35,7 +35,7 @@ public class Player extends Entity {
             // Player 2's screen position will be calculated dynamically in the draw loop
             screenX = 0;
             screenY = 0;
-        }
+        }*/
 
         getPlayerImage();
 
@@ -83,11 +83,41 @@ public class Player extends Entity {
             gamePanel.cChecker.checkTile(this);
 
             if (!collisionOn) {
+                int nextX = worldX;
+                int nextY = worldY;
+
                 switch (direction) {
-                    case "up": worldY -= speed; break;
-                    case "down": worldY += speed; break;
-                    case "left": worldX -= speed; break;
-                    case "right": worldX += speed; break;
+                    case "up": nextY -= speed; break;
+                    case "down": nextY += speed; break;
+                    case "left": nextX -= speed; break;
+                    case "right": nextX += speed; break;
+                }
+
+                // Calculate the CENTER of this player's potential next position
+                int centerX = nextX + (gamePanel.tileSize / 2);
+                int centerY = nextY + (gamePanel.tileSize / 2);
+
+                // Calculate the CENTER of the partner
+                Player partner = isPlayer1 ? gamePanel.player2 : gamePanel.player1;
+                int partnerCenterX = partner.worldX + (gamePanel.tileSize / 2);
+                int partnerCenterY = partner.worldY + (gamePanel.tileSize / 2);
+
+                // Calculate distance between CENTERS
+                int distanceX = Math.abs(centerX - partnerCenterX);
+                int distanceY = Math.abs(centerY - partnerCenterY);
+
+                // The limit should be the screen size minus one full tile to keep them fully on screen
+                int maxDistX = gamePanel.screenWidth - gamePanel.tileSize;
+                int maxDistY = gamePanel.screenHeight - gamePanel.tileSize;
+
+                // World boundaries
+                boolean insideWorldX = nextX >= 0 && nextX + gamePanel.tileSize <= gamePanel.maxWorldCol * gamePanel.tileSize;
+                boolean insideWorldY = nextY >= 0 && nextY + gamePanel.tileSize <= gamePanel.maxWorldRow * gamePanel.tileSize;
+
+                // Move only if within tether and world bounds
+                if (distanceX <= maxDistX && distanceY <= maxDistY && insideWorldX && insideWorldY) {
+                    worldX = nextX;
+                    worldY = nextY;
                 }
             }
 
@@ -105,13 +135,8 @@ public class Player extends Entity {
 
 
 
-    public void draw(Graphics2D g2, int tileSize) {
+    public void draw(Graphics2D g2, int screenX, int screenY) {
         BufferedImage image = null;
-
-        if (!isPlayer1) {
-            screenX = worldX - gamePanel.player1.worldX + gamePanel.player1.screenX;
-            screenY = worldY - gamePanel.player1.worldY + gamePanel.player1.screenY;
-        }
 
         switch (direction) {
             case "up":
@@ -132,6 +157,6 @@ public class Player extends Entity {
                 break;
         }
 
-        g2.drawImage(image, screenX, screenY, tileSize, tileSize, null);
+        g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
     }
 }

@@ -32,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
 
     public Player player1;
-    Player player2;
+    public Player player2;
 
     public GamePanel(String realmName) {
         this.currentRealm = realmName;
@@ -86,11 +86,32 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g); // erase previous frame
         Graphics2D g2 = (Graphics2D) g;
 
-        tileM.draw(g2);
-        player1.draw(g2, tileSize);
-        player2.draw(g2, tileSize);
+        int camX = getCameraX();
+        int camY = getCameraY();
+
+        tileM.draw(g2); // internally uses cameraX
+        player1.draw(g2, player1.worldX - camX, player1.worldY - camY);
+        player2.draw(g2, player2.worldX - camX, player2.worldY - camY);
 
         g2.dispose(); // Good practice to save memory
         Toolkit.getDefaultToolkit().sync(); // force display to sync with frame rate of game
+    }
+
+    // Calculate the camera's top-left world coordinates
+    public int getCameraX() {
+        // Find the visual center by adding the width of one half-tile to the average (offset)
+        int midX = (player1.worldX + player2.worldX + tileSize) / 2;
+        int camX = midX - (screenWidth / 2);
+
+        // CLAMPING: Prevent showing the black void on left/right
+        return Math.max(0, Math.min(camX, (maxWorldCol * tileSize) - screenWidth));
+    }
+
+    public int getCameraY() {
+        int midY = (player1.worldY + player2.worldY + tileSize) / 2;
+        int camY = midY - (screenHeight / 2);
+
+        // CLAMPING: Prevent showing the black void on top/bottom
+        return Math.max(0, Math.min(camY, (maxWorldRow * tileSize) - screenHeight));
     }
 }

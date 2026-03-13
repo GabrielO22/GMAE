@@ -33,7 +33,7 @@ public class Engine extends Application {
 
         mainLayout.setCenter(menu.getLayout());
 
-        Scene scene = new Scene(mainLayout, 800, 600);
+        Scene scene = new Scene(mainLayout, 768, 576); // screen settings from game panel
         primaryStage.setScene(scene);
 
         primaryStage.setOnCloseRequest(e -> {

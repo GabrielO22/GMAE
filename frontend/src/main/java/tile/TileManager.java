@@ -161,14 +161,14 @@ public class TileManager {
             int worldY = worldRow * gamePanel.tileSize;
 
             // where should tile be drawn relative to p1
-            int screenX = worldX - gamePanel.player1.worldX + gamePanel.player1.screenX;
-            int screenY = worldY - gamePanel.player1.worldY + gamePanel.player1.screenY;
+            int screenX = worldX - gamePanel.getCameraX();
+            int screenY = worldY - gamePanel.getCameraY();
 
             // only draw tile if it is visible within the screen + a little extra
-            if (worldX + gamePanel.tileSize > gamePanel.player1.worldX - gamePanel.player1.screenX - gamePanel.tileSize &&
-                    worldX - gamePanel.tileSize < gamePanel.player1.worldX + gamePanel.player1.screenX + gamePanel.tileSize &&
-                    worldY + gamePanel.tileSize > gamePanel.player1.worldY - gamePanel.player1.screenY - gamePanel.tileSize &&
-                    worldY - gamePanel.tileSize < gamePanel.player1.worldY + gamePanel.player1.screenY + gamePanel.tileSize) {
+            if (worldX + gamePanel.tileSize > gamePanel.getCameraX() &&
+                    worldX - gamePanel.tileSize < gamePanel.getCameraX() + gamePanel.screenWidth &&
+                    worldY + gamePanel.tileSize > gamePanel.getCameraY() &&
+                    worldY - gamePanel.tileSize < gamePanel.getCameraY() + gamePanel.screenHeight) {
 
                 g2.drawImage(tile[tileNum].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
             }

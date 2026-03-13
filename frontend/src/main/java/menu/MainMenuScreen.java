@@ -21,7 +21,7 @@ public class MainMenuScreen {
     private void createLayout() {
         layout = new VBox(20);
         layout.setAlignment(Pos.CENTER);
-        layout.setPrefSize(800, 600);
+        layout.setPrefSize(768, 576); // screen size from gamepanel
 
         Label title = new Label("GuildQuest Mini-Adventure Environment");
         title.setStyle("-fx-font-size: 24px;");
