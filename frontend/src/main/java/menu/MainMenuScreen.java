@@ -1,52 +1,56 @@
 package menu;
 
-import adventures.realmrelicrun.RealmRelicRun;
-import adventures.runesofreckoning.RunesOfReckoning;
-import app.Main;
+import engine.Engine;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class MainMenuScreen extends Main {
-    Stage stage;
-    public MainMenuScreen(Stage stage) {
+public class MainMenuScreen {
+    private Stage stage;
+    private Engine engine;
+    private VBox layout;
+
+    public MainMenuScreen(Stage stage, Engine engine) {
         this.stage = stage;
+        this.engine = engine;
+        createLayout();
     }
-    public void run() {
+
+    private void createLayout() {
+        layout = new VBox(20);
+        layout.setAlignment(Pos.CENTER);
+        layout.setPrefSize(800, 600);
+
+        Label title = new Label("GuildQuest Mini-Adventure Environment");
+        title.setStyle("-fx-font-size: 24px;");
+
         Button itemCollectionButton = new Button("Realm Relic Run");
         Button turnDuelButton = new Button("Runes of Reckoning");
 
         itemCollectionButton.setPrefWidth(200);
         turnDuelButton.setPrefWidth(200);
 
+        // When clicked, it tells Engine to launch the correct Swing GamePanel bridge
         itemCollectionButton.setOnAction(e -> {
-            RealmRelicRunScreen game = new RealmRelicRunScreen();
-            game.start(stage);
+            AdventureSetupScreen relicScreen = new AdventureSetupScreen(
+                    stage, engine, "Realm Relic Run Setup", "Start Game!", "FOREST"
+            );
+            stage.getScene().setRoot(relicScreen.getLayout());
         });
 
         turnDuelButton.setOnAction(e -> {
-            RunesOfReckoningScreen game = new RunesOfReckoningScreen();
-            game.start(stage);
+            AdventureSetupScreen runesScreen = new AdventureSetupScreen(
+                    stage, engine, "Runes of Reckoning Setup", "Start Duel!", "LAVA"
+            );
+            stage.getScene().setRoot(runesScreen.getLayout());
         });
 
-        VBox layout = new VBox(20);
-        layout.getChildren().addAll(itemCollectionButton, turnDuelButton);
-        layout.setAlignment(Pos.CENTER);
+        layout.getChildren().addAll(title, itemCollectionButton, turnDuelButton);
+    }
 
-        Label title = new Label("GuildQuest Mini-Adventure Environment");
-        title.setStyle("-fx-font-size: 24px;");
-        layout.getChildren().add(0, title);
-
-
-        Scene scene = new Scene(layout, 800, 600);
-        layout.setPrefSize(800, 600);
-
-        stage.setTitle("GuildQuest Mini-Adventure Environment");
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+    public VBox getLayout() {
+        return layout;
     }
 }

@@ -24,5 +24,5 @@ dependencies {
 
 // Tell Gradle where the main method is
 application {
-    mainClass.set("app.Launcher")
+    mainClass.set("engine.Launcher")
 }
