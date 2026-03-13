@@ -31,6 +31,7 @@ public class Character {
         activeBuffs = new ArrayList<>();
         attributes = new HashMap<>();
 
+        // below is for battle system
         maxHP = 0;
         currentHP = maxHP;
         attack = 0;

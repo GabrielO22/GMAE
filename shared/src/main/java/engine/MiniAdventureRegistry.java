@@ -2,10 +2,10 @@ package engine;
 
 import java.util.*;
 public class MiniAdventureRegistry {
-    private final Map<UUID, MiniAdventure> adventures = new LinkedHashMap<>();
-    public void register(MiniAdventure adventure) {
-        Objects.requireNonNull(adventure, "adventure");
-        adventures.put(adventure.id(), adventure);
+    private static final Map<UUID, MiniAdventure> adventures = new LinkedHashMap<>();
+    public static void register(MiniAdventure adventure) {
+        Objects.requireNonNull(adventure, "adventure cannot be null");
+        adventures.put(adventure.getID(), adventure);
     }
     public MiniAdventure get(UUID id) {
         MiniAdventure adv = adventures.get(id);

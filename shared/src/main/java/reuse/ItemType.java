@@ -1,7 +1,7 @@
 package reuse;
 
 public enum ItemType {
-    RELIC,
+    WEAPON,
     CONSUMABLE,
     BUFF
 }

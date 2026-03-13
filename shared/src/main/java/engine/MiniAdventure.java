@@ -1,17 +1,16 @@
 package engine;
 
-import profiles.PlayerProfile;
 import engine.input.Command;
 import engine.state.GameState;
+import engine.state.PlayerNumber;
 
-import java.util.UUID;
+import java.util.*;
 
 public interface MiniAdventure {
-    UUID id();
-    String name();
+    UUID getID();
+    String getName();
 
-    void initialize(PlayerProfile p1, PlayerProfile p2);
-    void handleCommand(int playerIndex, Command command);
+    void handleCommand(PlayerNumber playerNumber, Command command);
 
     // Turn-based: engine calls this once after both players choose actions
     // Real-time: engine calls this once per tick
@@ -20,7 +19,4 @@ public interface MiniAdventure {
     GameState getGameState();
 
     boolean isComplete();
-    String getResultSummary();
-
-    void reset();
 }

@@ -19,9 +19,10 @@ javafx {
 // link to shared module
 dependencies {
     implementation(project(":shared"))
+    implementation(project(":backend"))
 }
 
 // Tell Gradle where the main method is
 application {
-    mainClass.set("engine.Main")
+    mainClass.set("app.Launcher")
 }
