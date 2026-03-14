@@ -1,7 +1,9 @@
 package entity;
 
+import characters.Character;
 import engine.GamePanel;
 import engine.KeyHandler;
+import object.SuperObject;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,12 +13,13 @@ import javax.imageio.ImageIO;
 
 public class Player extends Entity {
     GamePanel gamePanel;
-    public int screenX, screenY;
     KeyHandler keyH;
     boolean isPlayer1;
+    public Character myCharacter;
+    public java.util.ArrayList<SuperObject> inventory = new java.util.ArrayList<>();
 
 
-    public Player(GamePanel gamePanel, int startWorldX, int startWorldY, KeyHandler keyH, boolean isPlayer1) {
+    public Player(GamePanel gamePanel, int startWorldX, int startWorldY, KeyHandler keyH, boolean isPlayer1, Character character) {
         this.gamePanel = gamePanel;
         this.worldX = startWorldX;
         this.worldY = startWorldY;
@@ -24,18 +27,16 @@ public class Player extends Entity {
 
         this.keyH = keyH;
         this.isPlayer1 = isPlayer1;
+        this.myCharacter = character;
         this.direction = "down";
 
-        // CAMERA SETUP (depreciated)
-        /*if (isPlayer1) {
-            // Player 1 is the camera anchor. Lock them to the center of the screen!
-            screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
-            screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
-        } else {
-            // Player 2's screen position will be calculated dynamically in the draw loop
-            screenX = 0;
-            screenY = 0;
-        }*/
+
+        // calculate speed based on character stats
+        double speedModifier = 1.0;
+        if (myCharacter != null && myCharacter.getClassType() != null) {
+            speedModifier = myCharacter.getClassType().getSpeed();
+        }
+        this.speed = (int) (4 * speedModifier);
 
         getPlayerImage();
 
@@ -81,6 +82,9 @@ public class Player extends Entity {
             // check collision
             collisionOn = false;
             gamePanel.cChecker.checkTile(this);
+
+            int objIndex = gamePanel.cChecker.checkObject(this, true);
+            pickUpObject(objIndex);
 
             if (!collisionOn) {
                 int nextX = worldX;
@@ -133,8 +137,6 @@ public class Player extends Entity {
         }
     }
 
-
-
     public void draw(Graphics2D g2, int screenX, int screenY) {
         BufferedImage image = null;
 
@@ -158,5 +160,20 @@ public class Player extends Entity {
         }
 
         g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+    }
+
+    public void pickUpObject(int i) {
+        if (i != 999) {
+            // Add to this specific player's inventory
+            inventory.add(gamePanel.obj[i]);
+
+            System.out.println("Player picked up: " + gamePanel.obj[i].name);
+
+            // Remove the object from the map
+            gamePanel.obj[i] = null;
+
+            // Tell the GamePanel to check if the game is over
+            gamePanel.checkWinCondition();
+        }
     }
 }

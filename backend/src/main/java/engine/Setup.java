@@ -4,8 +4,8 @@ import adventures.realmrelicrun.RealmRelicRun;
 import adventures.runesofreckoning.RunesOfReckoning;
 import items.ItemFactory;
 import profiles.PlayerProfile;
-import reuse.Item;
-import reuse.Realm;
+import items.Item;
+import realms.Realm;
 
 import java.util.Map;
 

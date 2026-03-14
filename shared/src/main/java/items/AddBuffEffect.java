@@ -1,6 +1,6 @@
 package items;
 
-import reuse.Character;
+import characters.Character;
 
 public class AddBuffEffect implements ItemEffect{
     private final Buff buff;

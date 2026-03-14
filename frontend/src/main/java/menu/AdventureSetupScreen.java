@@ -1,6 +1,10 @@
 package menu;
 
 import engine.Engine;
+import characters.Character;
+import characters.Warrior;
+import characters.Guardian;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -47,11 +51,18 @@ public class AdventureSetupScreen {
                 String[] availableMaps = {"FOREST", "LAVA", "ICE", "DESERT", "MUD"};
                 int randomIndex = new Random().nextInt(availableMaps.length);
                 mapToLaunch = availableMaps[randomIndex];
-
-                System.out.println("Randomly selected map: " + mapToLaunch); // Good for debugging
             }
 
-            engine.launchMiniAdventure(mapToLaunch);
+            Character p1Mock = new Character();
+            p1Mock.setName("Player 1");
+            p1Mock.setClassType(new Warrior());
+
+            Character p2Mock = new Character();
+            p2Mock.setName("Player 2");
+            p2Mock.setClassType(new Guardian());
+
+            System.out.println("Randomly selected map: " + mapToLaunch); // Good for debugging
+            engine.launchMiniAdventure(mapToLaunch, p1Mock, p2Mock);
         });
 
         // Back button logic stays the same

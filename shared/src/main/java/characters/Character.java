@@ -1,7 +1,7 @@
-package reuse;
+package characters;
 
-import characters.CharacterType;
 import items.Buff;
+import items.Inventory;
 
 import java.util.*;
 

@@ -1,6 +1,6 @@
 package items;
 
-import reuse.Character;
+import characters.Character;
 
 public interface ItemEffect {
     void apply(Character target);

@@ -30,6 +30,6 @@ public class Warrior implements CharacterType {
 
     @Override
     public double speed() {
-        return 0.9;
+        return 1;
     }
 }

@@ -1,6 +1,6 @@
 package items;
 
-import reuse.Character;
+import characters.Character;
 
 import java.util.function.Consumer;
 

@@ -1,8 +1,5 @@
 package items;
 
-import reuse.Item;
-import reuse.ItemType;
-
 public class ItemFactory {
     public static Item createHelmet(){
         Buff helmetBuff = new Buff("Helmet buff", -1,

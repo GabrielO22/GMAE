@@ -1,6 +1,8 @@
 package engine;
 
+import characters.Character;
 import entity.Player;
+import object.SuperObject;
 import tile.TileManager;
 
 import javax.swing.JPanel;
@@ -28,14 +30,25 @@ public class GamePanel extends JPanel implements Runnable {
     public String currentRealm;
     TileManager tileM;
     public CollisionChecker cChecker = new CollisionChecker(this);
+    public AssetSetter assetSetter = new AssetSetter(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
 
     public Player player1;
     public Player player2;
+    public Character p1Character;
+    public Character p2Character;
 
-    public GamePanel(String realmName) {
+    public SuperObject[] obj = new SuperObject[10];
+
+    public Engine engine;
+
+
+    public GamePanel(Engine engine, String realmName, Character p1Char, Character p2Char) {
+        this.engine = engine;
         this.currentRealm = realmName;
+        p1Character =  p1Char;
+        p2Character = p2Char;
         tileM = new TileManager(this, currentRealm);
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -45,8 +58,13 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true); // required to receive key inputs
 
 
-        player1 = new Player(this, 48, 48, keyH, true);
-        player2 = new Player(this, 96, 48, keyH, false);
+        player1 = new Player(this, 48, 48, keyH, true, p1Character);
+        player2 = new Player(this, 96, 48, keyH, false, p2Character);
+
+    }
+
+    public void setupGame() {
+        assetSetter.setObject();
     }
 
     public void startGameThread() {
@@ -89,7 +107,17 @@ public class GamePanel extends JPanel implements Runnable {
         int camX = getCameraX();
         int camY = getCameraY();
 
+        // TILE
         tileM.draw(g2); // internally uses cameraX
+
+        // OBJECTS
+        for (SuperObject superObject : obj) {
+            if (superObject != null) {
+                superObject.draw(g2, this);
+            }
+        }
+
+        // PLAYERS
         player1.draw(g2, player1.worldX - camX, player1.worldY - camY);
         player2.draw(g2, player2.worldX - camX, player2.worldY - camY);
 
@@ -113,5 +141,33 @@ public class GamePanel extends JPanel implements Runnable {
 
         // CLAMPING: Prevent showing the black void on top/bottom
         return Math.max(0, Math.min(camY, (maxWorldRow * tileSize) - screenHeight));
+    }
+
+    public void checkWinCondition() {
+        int itemsLeft = 0;
+        for (SuperObject superObject : obj) {
+            if (superObject != null) {
+                itemsLeft++;
+            }
+        }
+
+        if (itemsLeft == 0) {
+            System.out.println("All Relics Found!");
+            gameThread = null;
+
+            // Pseudo-code for when backend Inventory class is ready:
+            for (SuperObject item : player1.inventory) {
+                // p1Character.getInventory().addItem(item.backendItemId);
+                System.out.println(p1Character.getName() + " stored: " + item.name);
+            }
+
+            for (SuperObject item : player2.inventory) {
+                System.out.println(p2Character.getName() + " stored: " + item.name);
+            }
+
+            if (engine != null) {
+                engine.returnToMainMenu();
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 package engine;
 
-import reuse.Realm;
+import realms.Realm;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -27,7 +27,7 @@ public class RealmRegistry {
 
 /*package engine;
 
-import reuse.Realm;
+import realms.Realm;
 
 import java.util.LinkedList;
 import java.util.List;

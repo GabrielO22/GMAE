@@ -1,6 +1,6 @@
 package profiles;
 
-import reuse.Character;
+import characters.Character;
 
 import java.util.LinkedList;
 import java.util.List;

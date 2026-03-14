@@ -5,7 +5,7 @@ import engine.state.GameStatus;
 import engine.state.PlayerNumber;
 import engine.state.TurnBasedGameState;
 import profiles.PlayerProfile;
-import reuse.Character;
+import characters.Character;
 
 public record RunesOfReckoningGameState(
         GameStatus status,

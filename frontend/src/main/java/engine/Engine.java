@@ -1,5 +1,6 @@
 package engine;
 
+import characters.Character;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingNode;
@@ -13,6 +14,7 @@ import javax.swing.SwingUtilities;
 public class Engine extends Application {
     private BorderPane mainLayout;
     private Stage window;
+    private MainMenuScreen mainMenu;
 
     public static void main(String[] args) {
         launch(args); // This launches the JavaFX application
@@ -25,13 +27,12 @@ public class Engine extends Application {
 
         // Initialize backend logic
         Setup.init();
-
         mainLayout = new BorderPane();
 
         // Pass 'this' (the Engine) to the menu
-        MainMenuScreen menu = new MainMenuScreen(primaryStage, this);
+        mainMenu = new MainMenuScreen(primaryStage, this);
 
-        mainLayout.setCenter(menu.getLayout());
+        mainLayout.setCenter(mainMenu.getLayout());
 
         Scene scene = new Scene(mainLayout, 768, 576); // screen settings from game panel
         primaryStage.setScene(scene);
@@ -44,15 +45,17 @@ public class Engine extends Application {
         primaryStage.show();
     }
 
-    public void launchMiniAdventure(String realmName) {
+    public void launchMiniAdventure(String realmName, Character p1Char, Character p2Char) {
         // Create the JavaFX SwingNode
+        System.out.println("Engine received request to load map: " + realmName);
         SwingNode swingNode = new SwingNode();
 
         // Create the Swing GamePanel on the Swing Thread
         SwingUtilities.invokeLater(() -> {
             try {
-                GamePanel gamePanel = new GamePanel(realmName);
+                GamePanel gamePanel = new GamePanel(this, realmName, p1Char, p2Char);
                 swingNode.setContent(gamePanel); // Put the game panel inside the portal
+                gamePanel.setupGame(); // set objects on map
                 gamePanel.startGameThread(); // Start the tutorial's game loop
 
                 Platform.runLater(() -> {
@@ -71,5 +74,15 @@ public class Engine extends Application {
 
         // Give the game panel focus so WASD/arrow keys work
         swingNode.requestFocus();
+    }
+
+    // Restore the main layout to the window
+    public void returnToMainMenu() {
+        Platform.runLater(() -> {
+            mainLayout.setCenter(mainMenu.getLayout());
+            window.sizeToScene();
+            window.centerOnScreen();
+            mainLayout.requestFocus();
+        });
     }
 }

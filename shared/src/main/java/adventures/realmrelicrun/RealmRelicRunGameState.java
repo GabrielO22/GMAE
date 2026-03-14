@@ -4,8 +4,8 @@ import engine.RealmRegistry;
 import engine.state.GameStatus;
 import engine.state.RealTimeGameState;
 import profiles.PlayerProfile;
-import reuse.Character;
-import reuse.Realm;
+import characters.Character;
+import realms.Realm;
 
 public record RealmRelicRunGameState(
         GameStatus status,

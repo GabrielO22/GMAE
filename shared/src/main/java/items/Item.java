@@ -1,5 +1,6 @@
-package reuse;
-import items.ItemEffect;
+package items;
+import characters.Character;
+
 import java.util.UUID;
 
 public class Item {

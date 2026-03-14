@@ -1,6 +1,6 @@
 package items;
 
-import reuse.Character;
+import characters.Character;
 
 public class HealEffect implements ItemEffect{
     private final double percentage;
