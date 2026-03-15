@@ -14,6 +14,10 @@ public class CharacterRegistry {
         registerType(new Warrior());
         registerType(new Guardian());
 
+        registerType(new Mage());
+        registerType(new Cleric());
+        registerType(new Rogue());
+
         System.out.println("Character Registry initialized with " + registry.size() + " classes.");
     }
 
