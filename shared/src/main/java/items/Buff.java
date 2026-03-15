@@ -24,6 +24,7 @@ public class Buff {
     public int getDuration() {
         return duration;
     }
+    public void setDuration(int duration) { this.duration = duration; }
 
     public void apply(Character target){
         onApply.accept(target);

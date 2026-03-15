@@ -23,7 +23,6 @@ public class Player extends Entity {
         this.gamePanel = gamePanel;
         this.worldX = startWorldX;
         this.worldY = startWorldY;
-        this.speed = 4;
 
         this.keyH = keyH;
         this.isPlayer1 = isPlayer1;
@@ -32,11 +31,11 @@ public class Player extends Entity {
 
 
         // calculate speed based on character stats
-        double speedModifier = 1.0;
-        if (myCharacter != null && myCharacter.getClassType() != null) {
-            speedModifier = myCharacter.getClassType().getSpeed();
+        if (myCharacter != null) {
+            this.speed = myCharacter.getSpeed();
+        } else {
+            this.speed = 4; // Fallback failsafe
         }
-        this.speed = (int) (4 * speedModifier);
 
         getPlayerImage();
 
@@ -164,16 +163,48 @@ public class Player extends Entity {
 
     public void pickUpObject(int i) {
         if (i != 999) {
-            // Add to this specific player's inventory
-            inventory.add(gamePanel.obj[i]);
+            // Identify the visual object the player just touched
+            SuperObject grabbedVisualObject = gamePanel.obj[i];
+            System.out.println("Player picked up visual object: " + grabbedVisualObject.name);
 
-            System.out.println("Player picked up: " + gamePanel.obj[i].name);
-
-            // Remove the object from the map
+            //  Remove it from the 2D map
             gamePanel.obj[i] = null;
 
-            // Tell the GamePanel to check if the game is over
+            // Translate the visual name into a backend Item
+            if (myCharacter != null) {
+                items.Item backendItem = null; // Prepare an empty backend item
+
+                // Match the visual object's name to the factory
+                switch (grabbedVisualObject.name) {
+                    case "Hermes Boots": backendItem = items.ItemFactory.createSpeedBoots(); break;
+                    case "Iron Sword": backendItem = items.ItemFactory.createSword(); break;
+                    case "Health Potion": backendItem = items.ItemFactory.createPotion(); break;
+                    case "Relic Key": break; // Relics might just be win-condition counters, not inventory stats
+                    default: System.out.println("Unknown item: " + grabbedVisualObject.name);
+                }
+
+                // If we successfully created a backend item, put it in the inventory
+                if (backendItem != null) {
+                    myCharacter.getInventory().addItem(backendItem, 1);
+
+                    // IF it's an instant-use item, apply it  now
+                    if (backendItem.getType() == items.ItemType.CONSUMABLE) {
+                        backendItem.applyEffect(myCharacter);
+                    }
+                }
+            }
+
+            // Refresh stats (in case they picked up smt like speed boots)
+            refreshStats();
+
+            // Check if they won
             gamePanel.checkWinCondition();
+        }
+    }
+
+    public void refreshStats() {
+        if (myCharacter != null) {
+            this.speed = myCharacter.getSpeed();
         }
     }
 }

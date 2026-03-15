@@ -20,7 +20,7 @@ public class Adventurer implements CharacterType {
     public int defence() {
         return 8;
     }
-    public double speed() {
-        return 1.5;
+    public int speed() {
+        return 6;
     }
 }

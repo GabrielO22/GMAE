@@ -86,4 +86,17 @@ public class ItemFactory {
                 new AddBuffEffect(bladeBuff)
         );
     }
+
+    public static Item createSpeedBoots() {
+        Buff speedBuff = new Buff("Hermes Swiftness", 3,
+                c -> c.modifySpeed(2),  // Add 2 speed when applied
+                c -> c.modifySpeed(-2)  // Remove 2 speed when the buff expires
+        );
+
+        return new Item(
+                "Hermes Boots",
+                ItemType.BUFF,
+                new AddBuffEffect(speedBuff)
+        );
+    }
 }

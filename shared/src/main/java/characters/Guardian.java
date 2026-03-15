@@ -29,5 +29,5 @@ public class Guardian implements CharacterType {
     }
 
     @Override
-    public double speed() { return 0.5;}
+    public int speed() { return 3;}
 }

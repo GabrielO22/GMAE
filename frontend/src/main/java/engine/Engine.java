@@ -1,6 +1,7 @@
 package engine;
 
 import characters.Character;
+import characters.CharacterRegistry;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingNode;
@@ -26,6 +27,7 @@ public class Engine extends Application {
         primaryStage.setTitle("GuildQuest Mini-Adventure Environment");
 
         // Initialize backend logic
+        CharacterRegistry.register();
         Setup.init();
         mainLayout = new BorderPane();
 

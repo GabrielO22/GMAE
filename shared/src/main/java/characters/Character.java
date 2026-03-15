@@ -20,7 +20,7 @@ public class Character {
     private int currentHP;
     private int attack;
     private int defence;
-    private double speed;
+    private int speed;
     private double baseCritRate;
 
     public Character() {    // Character now takes no inputs, as the user gets to decide name and classType after creation
@@ -55,18 +55,19 @@ public class Character {
 
     public void setClassType(CharacterType classType) { // Added setter to classtype to allow user to set type. Attributes update once classType is set
         this.classType = classType;
-        this.maxHP = classType.getMaxHP();
-        this.currentHP = maxHP;
-        this.attack = classType.getAttack();
-        this.defence = classType.getDefence();
-        this.speed = classType.getSpeed();
+        if (classType != null) {
+            this.maxHP = classType.getMaxHP();
+            this.currentHP = this.maxHP; // Start at full health
+            this.attack = classType.getAttack();
+            this.defence = classType.getDefence();
+            this.speed = classType.getSpeed();
+        }
     }
     public Inventory getInventory() {
         return inventory;
     }
 
     // All below methods are added for the battle system
-
     public int getMaxHP() {
         return maxHP;
     }
@@ -95,11 +96,15 @@ public class Character {
     public void modifyDefence(int modification) {
         defence += modification;
     }
-    public double getSpeed() {
+    public int getSpeed() {
         return speed;
     }
-    public void modifySpeed(double modification) {
-        speed += modification;
+    public void modifySpeed(int amount) {
+        this.speed += amount;
+        // Prevent speed from dropping below 1 so they don't get permanently stuck
+        if (this.speed < 1) {
+            this.speed = 1;
+        }
     }
     public double getCritRate() {
         return baseCritRate;
@@ -109,6 +114,20 @@ public class Character {
     }
 
     public void addBuff(Buff buff) {
+        // Check for duplicates
+        for (Buff active : activeBuffs) {
+            if (active.getName().equals(buff.getName())) { // DUPLICATE FOUND
+                // Don't apply the stats again. Just refresh the duration
+                System.out.println(this.name + " already has " + buff.getName() + "! Refreshing duration.");
+
+                // Set the duration to whichever is higher (in case they pick up a stronger version)
+                active.setDuration(Math.max(active.getDuration(), buff.getDuration()));
+
+                return; // STOP EXECUTION HERE. Do not add to list again.
+            }
+        }
+
+        // If it is NOT a duplicate, apply it normally!
         buff.apply(this);
         activeBuffs.add(buff);
     }

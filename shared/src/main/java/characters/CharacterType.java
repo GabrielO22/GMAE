@@ -9,7 +9,7 @@ public interface CharacterType {
     int maxHP();    // standard: 100
     int attack();   // standard: 20
     int defence();  // standard: 10
-    double speed(); // standard: 1 (tile/sec)
+    int speed();
 
     default String getDisplayName() {
         return displayName();
@@ -20,10 +20,8 @@ public interface CharacterType {
     default int getAttack() {
         return attack();
     }
-    default int getDefence() {
-        return defence();
-    }
-    default double getSpeed() {
+    default int getDefence() { return defence(); }
+    default int getSpeed() {
         return speed();
     }
 

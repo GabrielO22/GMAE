@@ -29,7 +29,7 @@ public class Warrior implements CharacterType {
     }
 
     @Override
-    public double speed() {
-        return 1;
+    public int speed() {
+        return 4;
     }
 }
