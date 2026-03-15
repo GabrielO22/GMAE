@@ -8,7 +8,9 @@ import javafx.embed.swing.SwingNode;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import menu.CharacterDraftScreen;
 import menu.MainMenuScreen;
+import profiles.PlayerProfile;
 
 import javax.swing.SwingUtilities;
 
@@ -16,6 +18,9 @@ public class Engine extends Application {
     private BorderPane mainLayout;
     private Stage window;
     private MainMenuScreen mainMenu;
+
+    public PlayerProfile player1Profile;
+    public PlayerProfile player2Profile;
 
     public static void main(String[] args) {
         launch(args); // This launches the JavaFX application
@@ -32,9 +37,9 @@ public class Engine extends Application {
         mainLayout = new BorderPane();
 
         // Pass 'this' (the Engine) to the menu
-        mainMenu = new MainMenuScreen(primaryStage, this);
-
-        mainLayout.setCenter(mainMenu.getLayout());
+        // Instead of main menu we now load draft screen
+        CharacterDraftScreen draftScreen = new CharacterDraftScreen(this);
+        mainLayout.setCenter(draftScreen.getLayout());
 
         Scene scene = new Scene(mainLayout, 768, 576); // screen settings from game panel
         primaryStage.setScene(scene);
@@ -78,6 +83,15 @@ public class Engine extends Application {
         swingNode.requestFocus();
     }
 
+    public void launchMainMenu(PlayerProfile p1, PlayerProfile p2) {
+        this.player1Profile = p1;
+        this.player2Profile = p2;
+
+        // Pass the Engine and Profiles to the Main Menu
+        mainMenu = new MainMenuScreen(window, this);
+        returnToMainMenu();
+    }
+
     // Restore the main layout to the window
     public void returnToMainMenu() {
         Platform.runLater(() -> {
@@ -87,4 +101,6 @@ public class Engine extends Application {
             mainLayout.requestFocus();
         });
     }
+
+
 }
