@@ -14,5 +14,10 @@ public class Rogue implements CharacterType {
     @Override
     public int defence() { return 5; }
     @Override
-    public int speed() { return 7; } // Fastest character!
+    public int speed() { return 7; }
+
+    @Override
+    public String getSpritePath() {
+        return "/player/rogue/jingle_still.png";
+    }
 }

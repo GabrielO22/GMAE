@@ -8,7 +8,7 @@ import javafx.embed.swing.SwingNode;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import menu.CharacterDraftScreen;
+import menu.CharacterSelectScreen;
 import menu.MainMenuScreen;
 import menu.TitleScreen;
 import profiles.PlayerProfile;
@@ -104,7 +104,7 @@ public class Engine extends Application {
     }
 
     public void launchDraftScreen() {
-        CharacterDraftScreen draftScreen = new CharacterDraftScreen(this);
+        CharacterSelectScreen draftScreen = new CharacterSelectScreen(this);
         mainLayout.setCenter(draftScreen.getLayout());
     }
 }

@@ -16,11 +16,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import profiles.PlayerProfile;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class CharacterDraftScreen {
+public class CharacterSelectScreen {
     private final BorderPane layout; // Made final so we never overwrite the active window
     private final Engine engine;
 
@@ -34,7 +37,7 @@ public class CharacterDraftScreen {
     private Label selectionStatusLabel;
     private Button confirmButton;
 
-    public CharacterDraftScreen(Engine engine) {
+    public CharacterSelectScreen(Engine engine) {
         this.engine = engine;
         this.p1Profile = new PlayerProfile();
         this.p2Profile = new PlayerProfile();
@@ -117,12 +120,19 @@ public class CharacterDraftScreen {
             "-fx-border-radius: 0; " +          // NO rounded corners!
             "-fx-background-radius: 0;"         // NO rounded corners!
         );
-        card.setPrefWidth(220); // Defined width for consistency
+        card.setPrefWidth(210); // Defined width for consistency
 
         // --- IMAGE PLACEHOLDER ---
-        Rectangle imagePlaceholder = new Rectangle(50, 50, Color.web("#232323"));
-        imagePlaceholder.setStroke(Color.web("#635539"));
-        imagePlaceholder.setStrokeWidth(2);
+        ImageView spriteView;
+        try {
+            spriteView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream(type.getSpritePath()))));
+        } catch (Exception e) {
+            System.err.println("Could not load image: " + type.getSpritePath());
+            spriteView = new ImageView(); // Fallback if path is wrong
+        }
+        spriteView.setFitWidth(48);
+        spriteView.setFitHeight(48);
+        spriteView.setSmooth(false); // CRITICAL: Keeps pixel art sharp!
 
         Label nameLabel = new Label(type.getDisplayName());
         nameLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #0B6B80; -fx-font-family: 'Press Start 2P';");
@@ -133,20 +143,20 @@ public class CharacterDraftScreen {
         // --- DRAFT / UNDO BUTTON ---
         Button draftButton = getDraftButton(type, card);
 
-        card.getChildren().addAll(imagePlaceholder, nameLabel, statsGrid, draftButton);
+        card.getChildren().addAll(spriteView, nameLabel, statsGrid, draftButton);
         return card;
     }
 
     private Button getDraftButton(CharacterType type, VBox card) {
         Button draftButton = new Button("Draft");
         draftButton.setStyle(
-                "-fx-background-color: #555555; " +
-                        "-fx-border-color: #FFFFFF; " +
-                        "-fx-border-width: 2; " +
-                        "-fx-text-fill: #FFFFFF; " +
-                        "-fx-font-weight: bold; " +
-                        "-fx-cursor: hand; " +
-                        "-fx-font-family: 'Press Start 2P';"
+            "-fx-background-color: #555555; " +
+            "-fx-border-color: #FFFFFF; " +
+            "-fx-border-width: 2; " +
+            "-fx-text-fill: #FFFFFF; " +
+            "-fx-font-weight: bold; " +
+            "-fx-cursor: hand; " +
+            "-fx-font-family: 'Press Start 2P';"
         );
 
         draftButton.setOnAction(e -> {
@@ -218,7 +228,7 @@ public class CharacterDraftScreen {
         Label defLabel = new Label("DEF: " + type.getDefence());
         Label spdLabel = new Label("SPD: " + type.getSpeed());
 
-        String statStyle = "-fx-text-fill: #EEEEEE; -fx-font-size: 13px; -fx-font-family: 'Press Start 2P';";
+        String statStyle = "-fx-text-fill: #EEEEEE; -fx-font-size: 11px; -fx-font-family: 'Press Start 2P';";
         hpLabel.setStyle(statStyle);
         atkLabel.setStyle(statStyle);
         defLabel.setStyle(statStyle);

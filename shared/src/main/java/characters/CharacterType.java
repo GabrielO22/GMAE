@@ -5,6 +5,7 @@ import java.util.UUID;
 public interface CharacterType {
     UUID id();
     String displayName();
+    String getSpritePath();
 
     int maxHP();    // standard: 100
     int attack();   // standard: 20

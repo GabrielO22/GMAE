@@ -32,4 +32,9 @@ public class Warrior implements CharacterType {
     public int speed() {
         return 4;
     }
+
+    @Override
+    public String getSpritePath() {
+        return "/player/warrior/panda_still.png";
+    }
 }

@@ -15,4 +15,9 @@ public class Mage implements CharacterType {
     public int defence() { return 4; }
     @Override
     public int speed() { return 4; }
+
+    @Override
+    public String getSpritePath() {
+        return "/player/mage/bijou_still.png";
+    }
 }
