@@ -45,7 +45,7 @@ public class Player extends Entity {
         solidArea.x = 8;
         solidArea.y = 16;
         solidArea.width = 32;
-        solidArea.height = 32;
+        solidArea.height = 30;
     }
 
     public void getPlayerImage() {
@@ -200,6 +200,10 @@ public class Player extends Entity {
         }
 
         g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+
+        // for hitbox debugging purposes
+        //g2.setColor(Color.RED);
+        //g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
     }
 
     public void pickUpObject(int i) {
