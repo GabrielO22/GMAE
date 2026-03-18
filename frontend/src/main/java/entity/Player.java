@@ -8,6 +8,7 @@ import object.SuperObject;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 import javax.imageio.ImageIO;
 
 
@@ -48,18 +49,58 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
+        // Get the correct folder and prefix based on the drafted character using helper func
+        String basePath = getSpriteBasePath();
+
+        // Dynamically load/scale the directional sprites by appending the suffixes
+        up1 = loadAndScale(basePath + "_up_1.png");
+        up2 = loadAndScale(basePath + "_up_2.png");
+        down1 = loadAndScale(basePath + "_down_1.png");
+        down2 = loadAndScale(basePath + "_down_2.png");
+        left1 = loadAndScale(basePath + "_left_1.png");
+        left2 = loadAndScale(basePath + "_left_2.png");
+        right1 = loadAndScale(basePath + "_right_1.png");
+        right2 = loadAndScale(basePath + "_right_2.png");
+
+        //still = loadAndScale(basePath + "_still.png");
+    }
+
+    private String getSpriteBasePath() {
+        if (myCharacter == null || myCharacter.getClassType() == null) {
+            return "/player/adventurer/hamtaro"; // Failsafe default
+        }
+
+        String className = myCharacter.getClassType().getDisplayName();
+
+        return switch (className) {
+            case "Cleric" -> "/player/cleric/dexter";
+            case "Guardian" -> "/player/guardian/boss";
+            case "Mage" -> "/player/mage/bijou";
+            case "Rogue" -> "/player/rogue/jingle";
+            case "Warrior" -> "/player/warrior/panda";
+            default -> "/player/adventurer/hamtaro";
+        };
+    }
+
+    private BufferedImage loadAndScale(String imagePath) {
+        BufferedImage scaledImage = null;
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/adventurer/hamtaro_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/adventurer/hamtaro_up_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/adventurer/hamtaro_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/adventurer/hamtaro_down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/adventurer/hamtaro_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/adventurer/hamtaro_left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/adventurer/hamtaro_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/adventurer/hamtaro_right_2.png"));
-        } catch (IOException e) {
+            // Load the raw, original image
+            BufferedImage original = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
+
+            // Create a new blank canvas strictly locked to our tile size
+            scaledImage = new BufferedImage(gamePanel.tileSize, gamePanel.tileSize, BufferedImage.TYPE_INT_ARGB);
+
+            // Draw the original image onto the new canvas, forcing it to fit
+            Graphics2D g2 = scaledImage.createGraphics();
+            g2.drawImage(original, 0, 0, gamePanel.tileSize, gamePanel.tileSize, null);
+            g2.dispose(); // Clean up memory
+
+        } catch (Exception e) {
+            System.err.println("CRASH: Could not load or scale image -> " + imagePath);
             e.printStackTrace();
         }
+        return scaledImage;
     }
 
     public void update() {
