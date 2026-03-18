@@ -1,0 +1,66 @@
+package profiles;
+
+import characters.Character;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
+
+public class PlayerProfile {
+    private final UUID playerID;
+    private String playerName;
+    private int numRelicsCollected;
+    private int duelsWon;
+    private int duelsLost;
+
+    private final List<Character> characters;
+    private final int MAX_CHARACTERS = 3;
+
+    public PlayerProfile() {
+        this.playerID = UUID.randomUUID();
+        characters = new LinkedList<>();
+        for (int i = 0; i < MAX_CHARACTERS; i++) {
+            characters.add(new Character());
+        }
+    }
+
+    public UUID getPlayerID() {
+        return playerID;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String name) {
+        playerName = name;
+    }
+
+    public int getRelicsCollected() {
+        return numRelicsCollected;
+    }
+
+    public void addRelicCollected() {
+        numRelicsCollected ++;
+    }
+
+    public int getDuelsWon() {
+        return duelsWon;
+    }
+
+    public void addDuelWon() {
+        duelsWon ++;
+    }
+
+    public int getDuelsLost() {
+        return duelsLost;
+    }
+
+    public void addDuelLost() {
+        duelsLost ++;
+    }
+
+    public List<Character> getCharacters() {
+        return characters;
+    }
+}
