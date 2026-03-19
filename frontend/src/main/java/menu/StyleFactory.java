@@ -25,7 +25,7 @@ public class StyleFactory {
     public static Button createButton(String text, String options) {
         Button btn = new Button(text);
         String normal = "-fx-background-color: #555555; " + UIConstants.BORDER_WHITE + " -fx-text-fill: white; -fx-font-family: " + UIConstants.FONT_FAMILY + "; -fx-padding: 10 20;" + options + " -fx-cursor: hand;";
-        String hover = "-fx-background-color: " + UIConstants.BTN_HOVER + "; " + UIConstants.BORDER_WHITE + " -fx-text-fill: " + UIConstants.RETRO_YELLOW + ";" + " -fx-font-family: " + UIConstants.FONT_FAMILY + "; -fx-padding: 10 20;" + options + " -fx-cursor: hand;";
+        String hover = "-fx-background-color: " + UIConstants.TEAL_ACCENT + "; " + UIConstants.BORDER_WHITE + " -fx-text-fill: " + UIConstants.WHITE + ";" + " -fx-font-family: " + UIConstants.FONT_FAMILY + ";" + " -fx-padding: 10 20;" + " -fx-cursor: hand;";
 
         btn.setStyle(normal);
         btn.setOnMouseEntered(e -> btn.setStyle(hover));

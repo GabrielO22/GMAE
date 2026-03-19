@@ -104,7 +104,7 @@ public class PlayerProfileManager {
     // =============================================
     private HBox createMainProfileCard() {
         HBox mainCard = new HBox(20);
-        mainCard.setStyle("-fx-background-color: " + UIConstants.CARD_GREY + ";" + "-fx-border-color: " + UIConstants.BLUE_BORDER + ";" + "-fx-border-width: 3;" + "-fx-border-radius: 12;" + "-fx-background-radius: 12;");
+        mainCard.setStyle("-fx-background-color: " + UIConstants.CARD_GREY + ";" + ";" + "-fx-border-width: 3;" + "-fx-border-radius: 12;" + "-fx-background-radius: 12;");
         mainCard.setPadding(new Insets(16));
         mainCard.setAlignment(Pos.CENTER);
 
@@ -135,7 +135,7 @@ public class PlayerProfileManager {
         grid.setVgap(3);
 
         for (int row = 0; row < 5; row++) {
-            for (int col = 0; col < 6; col++) {
+            for (int col = 0; col < 5; col++) {
                 VBox slot = new VBox(2);
                 slot.setAlignment(Pos.CENTER);
                 slot.setPrefSize(70, 50);
