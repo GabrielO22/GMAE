@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import music.MusicPlayer;
+import utils.Constants;
 
 public class MainMenuScreen {
     private Stage stage;
@@ -16,6 +18,7 @@ public class MainMenuScreen {
         this.stage = stage;
         this.engine = engine;
         createLayout();
+        MusicPlayer.play(Constants.TRACK_MENU);
     }
 
     private void createLayout() {
