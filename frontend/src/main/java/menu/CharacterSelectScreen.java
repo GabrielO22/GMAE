@@ -114,13 +114,13 @@ public class CharacterSelectScreen {
 
         // Classic retro blue box with a thick white border
         card.setStyle(
-            "-fx-background-color: #000080; " + // Deep navy blue
-            "-fx-border-color: #FFFFFF; " +     // Pure white border
-            "-fx-border-width: 4; " +           // Thick, blocky border
-            "-fx-border-radius: 0; " +          // NO rounded corners!
-            "-fx-background-radius: 0;"         // NO rounded corners!
+                "-fx-background-color: #000080; " + // Deep navy blue
+                        "-fx-border-color: #FFFFFF; " +     // Pure white border
+                        "-fx-border-width: 4; " +           // Thick, blocky border
+                        "-fx-border-radius: 0; " +          // NO rounded corners!
+                        "-fx-background-radius: 0;"         // NO rounded corners!
         );
-        card.setPrefWidth(210); // Defined width for consistency
+        card.setPrefWidth(240); // Widened from 210 to fit Adventurer + stats
 
         // --- IMAGE PLACEHOLDER ---
         ImageView spriteView;
@@ -150,13 +150,13 @@ public class CharacterSelectScreen {
     private Button getDraftButton(CharacterType type, VBox card) {
         Button draftButton = new Button("Draft");
         draftButton.setStyle(
-            "-fx-background-color: #555555; " +
-            "-fx-border-color: #FFFFFF; " +
-            "-fx-border-width: 2; " +
-            "-fx-text-fill: #FFFFFF; " +
-            "-fx-font-weight: bold; " +
-            "-fx-cursor: hand; " +
-            "-fx-font-family: 'Press Start 2P';"
+                "-fx-background-color: #555555; " +
+                        "-fx-border-color: #FFFFFF; " +
+                        "-fx-border-width: 2; " +
+                        "-fx-text-fill: #FFFFFF; " +
+                        "-fx-font-weight: bold; " +
+                        "-fx-cursor: hand; " +
+                        "-fx-font-family: 'Press Start 2P';"
         );
 
         draftButton.setOnAction(e -> {
@@ -173,22 +173,22 @@ public class CharacterSelectScreen {
                 currentDraftList.remove(existingDraft);
 
                 card.setStyle(
-                    "-fx-background-color: #000080; " +
-                    "-fx-border-color: #FFFFFF; " +
-                    "-fx-border-width: 4; " +
-                    "-fx-border-radius: 0; " +
-                    "-fx-background-radius: 0;"
+                        "-fx-background-color: #000080; " +
+                                "-fx-border-color: #FFFFFF; " +
+                                "-fx-border-width: 4; " +
+                                "-fx-border-radius: 0; " +
+                                "-fx-background-radius: 0;"
                 );
 
                 draftButton.setText("Draft");
                 draftButton.setStyle(
-                    "-fx-background-color: #555555; " +
-                    "-fx-border-color: #FFFFFF; " +
-                    "-fx-border-width: 2; " +
-                    "-fx-text-fill: #FFFFFF; " +
-                    "-fx-font-weight: bold; " +
-                    "-fx-cursor: hand; " +
-                    "-fx-font-family: 'Press Start 2P';"
+                        "-fx-background-color: #555555; " +
+                                "-fx-border-color: #FFFFFF; " +
+                                "-fx-border-width: 2; " +
+                                "-fx-text-fill: #FFFFFF; " +
+                                "-fx-font-weight: bold; " +
+                                "-fx-cursor: hand; " +
+                                "-fx-font-family: 'Press Start 2P';"
                 );
             } else {
                 // DRAFT LOGIC: Change to selected Retro Yellow style
@@ -198,22 +198,22 @@ public class CharacterSelectScreen {
 
                     // Notice the Yellow (#FFFF00) border here!
                     card.setStyle(
-                        "-fx-background-color: #000080; " +
-                        "-fx-border-color: #FFFF00; " +
-                        "-fx-border-width: 4; " +
-                        "-fx-border-radius: 0; " +
-                        "-fx-background-radius: 0;"
+                            "-fx-background-color: #000080; " +
+                                    "-fx-border-color: #FFFF00; " +
+                                    "-fx-border-width: 4; " +
+                                    "-fx-border-radius: 0; " +
+                                    "-fx-background-radius: 0;"
                     );
 
                     draftButton.setText("Undo");
                     draftButton.setStyle(
-                        "-fx-background-color: #8c2a2a; " + // Red background
-                        "-fx-border-color: #FFFFFF; " +      // Kept the thick white border
-                        "-fx-border-width: 2; " +
-                        "-fx-text-fill: #FFFFFF; " +
-                        "-fx-font-weight: bold; " +
-                        "-fx-cursor: hand; " +
-                        "-fx-font-family: 'Press Start 2P';"
+                            "-fx-background-color: #8c2a2a; " + // Red background
+                                    "-fx-border-color: #FFFFFF; " +      // Kept the thick white border
+                                    "-fx-border-width: 2; " +
+                                    "-fx-text-fill: #FFFFFF; " +
+                                    "-fx-font-weight: bold; " +
+                                    "-fx-cursor: hand; " +
+                                    "-fx-font-family: 'Press Start 2P';"
                     );
                 }
             }
@@ -236,7 +236,7 @@ public class CharacterSelectScreen {
 
         GridPane statsGrid = new GridPane();
         statsGrid.setAlignment(Pos.CENTER);
-        statsGrid.setHgap(15);
+        statsGrid.setHgap(20);
         statsGrid.setVgap(5);
         statsGrid.add(hpLabel, 0, 0);
         statsGrid.add(atkLabel, 1, 0);

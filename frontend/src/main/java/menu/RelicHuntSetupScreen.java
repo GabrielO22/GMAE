@@ -128,12 +128,12 @@ public class RelicHuntSetupScreen {
             nameLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #0B6B80; -fx-font-family: 'Press Start 2P';");
 
             Label classLabel = new Label("Class: " + character.getClassType().getDisplayName());
-            classLabel.setStyle("-fx-font-size: 10px; -fx-text-fill: #FFFFFF; -fx-font-family: 'Press Start 2P';");
+            classLabel.setStyle("-fx-font-size: 9px; -fx-text-fill: #FFFFFF; -fx-font-family: 'Press Start 2P';");
 
             Label speedLabel = new Label("Spd: " + character.getClassType().getSpeed());
-            speedLabel.setStyle("-fx-font-size: 10px; -fx-text-fill: #FFFFFF; -fx-font-family: 'Press Start 2P';");
+            speedLabel.setStyle("-fx-font-size: 9px; -fx-text-fill: #FFFFFF; -fx-font-family: 'Press Start 2P';");
 
-            HBox statsBox = new HBox(10);
+            VBox statsBox = new VBox(3);
             statsBox.setAlignment(Pos.CENTER);
             statsBox.getChildren().addAll(classLabel, speedLabel);
 
