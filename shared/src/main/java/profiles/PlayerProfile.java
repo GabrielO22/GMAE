@@ -22,6 +22,8 @@ public class PlayerProfile {
         for (int i = 0; i < MAX_CHARACTERS; i++) {
             characters.add(new Character());
         }
+        duelsWon = 0;
+        duelsLost = 0;
     }
 
     public UUID getPlayerID() {
@@ -59,6 +61,8 @@ public class PlayerProfile {
     public void addDuelLost() {
         duelsLost ++;
     }
+
+    public String getDuelRecord()  { return "Duel Record: " + duelsWon + "-" + duelsLost; }
 
     public List<Character> getCharacters() {
         return characters;
