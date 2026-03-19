@@ -13,7 +13,7 @@ repositories {
 javafx {
     version = "21.0.2"
     // We need 'controls' for Buttons/Menus, and 'swing' for SwingNode
-    modules("javafx.controls", "javafx.swing")
+    modules("javafx.controls", "javafx.swing", "javafx.media")
 }
 
 // link to shared module

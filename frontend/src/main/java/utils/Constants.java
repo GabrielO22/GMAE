@@ -1,6 +1,6 @@
-package menu;
+package utils;
 
-public class UIConstants {
+public class Constants {
     // Colors
     public static final String BG_MAIN = "#232323";
     public static final String RETRO_NAVY = "#000080";
@@ -19,4 +19,9 @@ public class UIConstants {
     // Fonts & Styles
     public static final String FONT_FAMILY = "'Press Start 2P'";
     public static final String BORDER_WHITE = "-fx-border-color: #FFFFFF; -fx-border-width: 4;";
+
+    // Music tracks
+    public static final String TRACK_MENU = "/sounds/geralt_of_rivia.mp3";
+    public static final String TRACK_BATTLE = "/sounds/battle_theme.mp3";
+    public static final String TRACK_RELIC = "/sounds/relic_theme.mp3";
 }
