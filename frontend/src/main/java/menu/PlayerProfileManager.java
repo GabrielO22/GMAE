@@ -1,5 +1,6 @@
 package menu;
 
+import characters.Character;
 import engine.Engine;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,18 +10,24 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import profiles.PlayerProfile;
+
+import java.util.List;
 
 public class PlayerProfileManager {
     private final Stage stage;
     private final Engine engine;
     private final BorderPane layout;
 
-    private int activeTab = 1;
+    private int activeTab;
+    private int activePlayer;
     private Button[] tabs;
+    private VBox statsPanel;
 
     public PlayerProfileManager(Stage stage, Engine engine) {
         this.stage = stage;
         this.engine = engine;
+        this.activePlayer = 1;
 
         layout = new BorderPane();
         layout.setStyle(StyleFactory.createBackground(UIConstants.BG_MAIN));
@@ -31,9 +38,21 @@ public class PlayerProfileManager {
     }
 
     private void renderUI() {
+        activeTab = 0;
         layout.setTop(createHeader());
         layout.setCenter(createCenterSection());
         layout.setBottom(createFooter());
+    }
+
+    // =============================================
+    // HELPERS
+    // =============================================
+    private PlayerProfile getCurrentProfile() {
+        return activePlayer == 1 ? engine.player1Profile : engine.player2Profile;
+    }
+
+    private List<Character> getCharacters() {
+        return getCurrentProfile().getCharacters();
     }
 
     // =============================================
@@ -41,7 +60,7 @@ public class PlayerProfileManager {
     // =============================================
     private VBox createHeader() {
         Label title = StyleFactory.createLabel("Player Profile Manager", 20, UIConstants.OFF_WHITE);
-        Label name = StyleFactory.createLabel("<Player Name>", 16, UIConstants.WHITE);
+        Label name = StyleFactory.createLabel(getCurrentProfile().getPlayerName(), 16, UIConstants.WHITE);
         Label relics = StyleFactory.createLabel("Relics Collected: 0", 14, UIConstants.WHITE);
         Label records = StyleFactory.createLabel("Duel Record: 0-0", 14, UIConstants.WHITE);
 
@@ -55,8 +74,8 @@ public class PlayerProfileManager {
     // CENTER SECTION
     // =============================================
     private VBox createCenterSection() {
-        HBox tabBar = createCharacterTabs();
         HBox mainCard = createMainProfileCard();
+        HBox tabBar = createCharacterTabs();
 
         VBox center = new VBox(0, tabBar, mainCard);
         center.setAlignment(Pos.CENTER_LEFT);
@@ -67,18 +86,18 @@ public class PlayerProfileManager {
     // CHARACTER TABS
     // =============================================
     private HBox createCharacterTabs() {
-        String[] tabNames = {"Character A", "Character B", "Character C"};
-        tabs = new Button[tabNames.length];
+        List<Character> characters = getCharacters();
+        tabs = new Button[3];
 
-        for (int i = 0; i < tabNames.length; i++) {
+        for (int i = 0; i < 3; ++i) {
             final int idx = i;
-            Button btn = new Button(tabNames[i]);
+            Button btn = new Button(characters.get(i).getName());
             StyleFactory.applyTabStyle(btn, i == activeTab);
 
             btn.setOnMouseEntered(e -> {
                 boolean sel = (idx == activeTab);
                 String hoverBg = sel ? "#555555" : "#BBBBBB";
-                String hoverTxt = sel ? UIConstants.RETRO_YELLOW : "#222222";
+                String hoverTxt = sel ? UIConstants.TEAL_ACCENT : "#222222";
                 btn.setStyle(StyleFactory.buildTabStyle(hoverBg, hoverTxt));
             });
             btn.setOnMouseExited(e -> StyleFactory.applyTabStyle(btn, idx == activeTab));
@@ -87,7 +106,8 @@ public class PlayerProfileManager {
                 for (int j = 0; j < tabs.length; j++)
                     StyleFactory.applyTabStyle(tabs[j], j == activeTab);
 
-                // TODO: load character data from engine here
+                // Refresh stats, no full re-render
+                refreshStatsPanel(characters.get(activeTab));
             });
 
             tabs[i] = btn;
@@ -107,8 +127,8 @@ public class PlayerProfileManager {
         mainCard.setStyle("-fx-background-color: " + UIConstants.CARD_GREY + ";" + ";" + "-fx-border-width: 3;" + "-fx-border-radius: 12;" + "-fx-background-radius: 12;");
         mainCard.setPadding(new Insets(16));
         mainCard.setAlignment(Pos.CENTER);
-
-        mainCard.getChildren().addAll(createPortraitGrid(), createRelicGrid(), createStatsPanel());
+        statsPanel = createStatsPanel();
+        mainCard.getChildren().addAll(createPortraitGrid(), createRelicGrid(), statsPanel);
         return mainCard;
     }
 
@@ -156,15 +176,28 @@ public class PlayerProfileManager {
     // =============================================
     // STATS PANEL
     // =============================================
+    private void updateStats(VBox target, Character c) {
+        target.getChildren().addAll(
+                StyleFactory.createLabel(c.getName(), 14, UIConstants.WHITE),
+                StyleFactory.createLabel(c.getClassType().getDisplayName(), 14, UIConstants.WHITE),
+                StyleFactory.createLabel("Base ATK: " + c.getClassType().getAttack(), 14, UIConstants.WHITE),
+                StyleFactory.createLabel("Base DEF: " + c.getClassType().getDefence(), 14, UIConstants.WHITE),
+                StyleFactory.createLabel("Base HP: " + c.getClassType().getMaxHP(), 14, UIConstants.WHITE)
+        );
+    }
+
     private VBox createStatsPanel() {
         VBox stats = new VBox(14);
         stats.setAlignment(Pos.CENTER_LEFT);
-
-        String[] entries = {"<Character Name>", "<Character Class>", "Base Attack: 0", "Base Defense: 0", "Base Health: 0"};
-        for (String entry : entries)
-            stats.getChildren().add(StyleFactory.createLabel(entry, 11, UIConstants.WHITE));
+        List<Character> characters = getCharacters();
+        updateStats(stats, characters.get(activeTab));
 
         return stats;
+    }
+
+    private void refreshStatsPanel(Character c) {
+        statsPanel.getChildren().clear();
+        updateStats(statsPanel, c);
     }
 
     // =============================================
@@ -175,12 +208,16 @@ public class PlayerProfileManager {
         backBtn.setOnAction(e -> stage.getScene().setRoot(new MainMenuScreen(stage, engine).getLayout()));
 
         Button swapBtn = StyleFactory.createButton("Swap Player Profile");
+        swapBtn.setOnAction(e -> {
+            activePlayer = (activePlayer == 1) ? 2 : 1;
+            renderUI();
+        });
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
-
         HBox footer = new HBox(backBtn, spacer, swapBtn);
         footer.setPadding(new Insets(12, 0, 0, 0));
+
         return footer;
     }
 
