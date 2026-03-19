@@ -15,6 +15,8 @@ public class PlayerProfileManager {
     private final Engine engine;
     private final BorderPane layout;
 
+    private int activeTab = 1;
+
     public PlayerProfileManager(Stage stage, Engine engine) {
         this.stage = stage;
         this.engine = engine;
@@ -28,10 +30,13 @@ public class PlayerProfileManager {
 
     private void renderUI(){
         layout.setTop(createHeader());
-        layout.setCenter(createMainProfileCard());
+        layout.setCenter(createCenterSection());
         layout.setBottom(createFooter());
     }
 
+    // =============================================
+    // HEADER
+    // =============================================
     private VBox createHeader() {
         Label title = StyleFactory.createLabel("Player Profile Manager",
                 28, UIConstants.OFF_WHITE);
@@ -48,61 +53,153 @@ public class PlayerProfileManager {
         return header;
     }
 
+    // =============================================
+    // CENTER SECTION
+    // =============================================
+    private VBox createCenterSection() {
+        HBox tabBar   = createCharacterTabs();
+        HBox mainCard = createMainProfileCard();
+
+        VBox center = new VBox(0, tabBar, mainCard);
+        center.setAlignment(Pos.CENTER_LEFT);
+        return center;
+    }
+
+    // =============================================
+    // CHARACTER TABS
+    // =============================================
+    private HBox createCharacterTabs() {
+        String[] tabNames = {"Character A", "Character B", "Character C"};
+        Button[] tabs = new Button[tabNames.length];
+
+        for (int i = 0; i < tabNames.length; i++) {
+            final int idx = i;
+            Button btn = new Button(tabNames[i]);
+            StyleFactory.applyTabStyle(btn, i == activeTab);
+
+            btn.setOnMouseEntered(e -> {
+                boolean sel = (idx == activeTab);
+                String hoverBg  = sel ? "#555555" : "#BBBBBB";
+                String hoverTxt = sel ? UIConstants.RETRO_YELLOW : "#222222";
+                btn.setStyle(StyleFactory.buildTabStyle(hoverBg, hoverTxt));
+            });
+            btn.setOnMouseExited(e ->
+                    // KEY FIX: live check, not stale captured boolean
+                    StyleFactory.applyTabStyle(btn, idx == activeTab)
+            );
+            btn.setOnAction(e -> {
+                activeTab = idx;
+                for (int j = 0; j < tabs.length; j++) {
+                    StyleFactory.applyTabStyle(tabs[j], j == activeTab);
+                }
+            });
+
+            tabs[i] = btn;
+        }
+
+        HBox tabBar = new HBox(6, tabs);
+        tabBar.setAlignment(Pos.CENTER_LEFT);
+        tabBar.setPadding(new Insets(0, 0, 0, 4));
+        return tabBar;
+    }
+
+    // =============================================
+    // MAIN PROFILE CARD
+    // =============================================
     private HBox createMainProfileCard() {
         HBox mainCard = new HBox(20);
-        mainCard.setStyle(StyleFactory.createBackground(UIConstants.CARD_GREY));
+        mainCard.setStyle(
+                "-fx-background-color: " + UIConstants.CARD_GREY + ";"
+                        + " -fx-border-color: "  + UIConstants.BLUE_BORDER + ";"
+                        + " -fx-border-width: 3;"
+                        + " -fx-border-radius: 12;"
+                        + " -fx-background-radius: 12;"
+        );
         mainCard.setPadding(new Insets(20));
         mainCard.setAlignment(Pos.CENTER);
 
-        // Character Avatars Grid (2x5 circles)
-        GridPane portraitGrid = new GridPane();
-        portraitGrid.setHgap(10);
-        portraitGrid.setVgap(10);
-        for (int row = 0; row < 5; row++) {
-            for (int col = 0; col < 2; col++) {
-                portraitGrid.add(new Circle(25, Color.BLACK), col, row);
-            }
-        }
-
-        // Relic Inventory Grid (6x4 blocks)
-        GridPane relicGrid = new GridPane();
-        relicGrid.setHgap(5);
-        relicGrid.setVgap(5);
-        for (int row = 0; row < 4; row++) {
-            for (int col = 0; col < 6; col++) {
-                VBox relicBox = new VBox(2);
-                relicBox.setAlignment(Pos.CENTER);
-                relicBox.setPrefSize(70, 50);
-                relicBox.setStyle(StyleFactory.createBackground(UIConstants.RELIC_SLOT));
-
-                Label rName = StyleFactory.createLabel("Long Relic\nName",
-                        8, UIConstants.WHITE, "-fx-text-alignment: center;");
-                Label rVal = StyleFactory.createLabel("1",
-                        8, UIConstants.WHITE);
-
-                relicBox.getChildren().addAll(rName, rVal);
-                relicGrid.add(relicBox, col, row);
-            }
-        }
-
-        // 3. Right Side: Stats labels
-        VBox stats = new VBox(20);
-        stats.setAlignment(Pos.CENTER_LEFT);
-        String statStyle = StyleFactory.createTextStyle(14, UIConstants.WHITE);
-
-        stats.getChildren().addAll(
-                new Label("<Character Name>"),
-                new Label("<Character Class>"),
-                new Label("Base Attack: 0"),
-                new Label("Base Defense: 0"),
-                new Label("Base Health: 0")
+        mainCard.getChildren().addAll(
+                createPortraitGrid(),
+                createRelicGrid(),
+                createStatsPanel()
         );
-        stats.getChildren().forEach(n -> n.setStyle(statStyle));
-
-        mainCard.getChildren().addAll(portraitGrid, relicGrid, stats);
         return mainCard;
     }
 
+    // =============================================
+    // PORTRAIT GRID
+    // =============================================
+    private GridPane createPortraitGrid() {
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        for (int row = 0; row < 5; row++) {
+            for (int col = 0; col < 2; col++) {
+                grid.add(new Circle(25, Color.BLACK), col, row);
+            }
+        }
+        return grid;
+    }
+
+    // =============================================
+    // RELIC GRID
+    // =============================================
+    private GridPane createRelicGrid() {
+        GridPane grid = new GridPane();
+        grid.setHgap(3);
+        grid.setVgap(3);
+
+        for (int row = 0; row < 5; row++) {
+            for (int col = 0; col < 6; col++) {
+                VBox slot = new VBox(2);
+                slot.setAlignment(Pos.CENTER);
+                slot.setPrefSize(70, 50);
+
+                // Checkerboard: alternate based on (row+col) parity
+                boolean dark = (row + col) % 2 == 0;
+                String slotColor = dark
+                        ? UIConstants.RELIC_SLOT_DARK
+                        : UIConstants.RELIC_SLOT_LIGHT;
+                slot.setStyle("-fx-background-color: " + slotColor + ";");
+
+                Label rName = StyleFactory.createLabel("Long Relic\nName",
+                        8, UIConstants.WHITE, "-fx-text-alignment: center;");
+                Label rVal  = StyleFactory.createLabel("1",
+                        8, UIConstants.WHITE);
+
+                slot.getChildren().addAll(rName, rVal);
+                grid.add(slot, col, row);
+            }
+        }
+        return grid;
+    }
+
+    // =============================================
+    // STATS PANEL
+    // =============================================
+    private VBox createStatsPanel() {
+        VBox stats = new VBox(20);
+        stats.setAlignment(Pos.CENTER_LEFT);
+
+        String[][] entries = {
+                {"<Character Name>"},
+                {"<Character Class>"},
+                {"Base Attack: 0"},
+                {"Base Defense: 0"},
+                {"Base Health: 0"}
+        };
+
+        for (String[] entry : entries) {
+            stats.getChildren().add(
+                    StyleFactory.createLabel(entry[0], 14, UIConstants.WHITE)
+            );
+        }
+        return stats;
+    }
+
+    // =============================================
+    // FOOTER
+    // =============================================
     private HBox createFooter() {
         Button backBtn = StyleFactory.createButton("Return to Main");
         //backBtn.setStyle(BUTTON_STYLE + RETRO_FONT + "-fx-font-size: 14px; -fx-padding: 10 20;");
@@ -111,8 +208,10 @@ public class PlayerProfileManager {
         Button swapBtn = StyleFactory.createButton("Swap Player Profile");
         //swapBtn.setStyle(BUTTON_STYLE + RETRO_FONT + "-fx-font-size: 14px; -fx-padding: 10 20;");
 
-        HBox footer = new HBox(backBtn, new Region(), swapBtn);
-        HBox.setHgrow(footer.getChildren().get(1), Priority.ALWAYS);
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        HBox footer = new HBox(backBtn, spacer, swapBtn);
         footer.setPadding(new Insets(20, 0, 0, 0));
         return footer;
     }

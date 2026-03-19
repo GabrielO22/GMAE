@@ -24,10 +24,45 @@ public class StyleFactory {
         return createLabel(text, sz, color, "");
     }
 
-    public static Button createButton(String text){
+    public static Button createButton(String text, String options){
         Button btn = new Button(text);
-        btn.setStyle("-fx-background-color: #555555; " + UIConstants.BORDER_WHITE
-                + " -fx-text-fill: white; -fx-font-family: " + UIConstants.FONT_FAMILY + ";");
+        String normal = "-fx-background-color: #555555; "
+                + UIConstants.BORDER_WHITE
+                + " -fx-text-fill: white; -fx-font-family: "
+                + UIConstants.FONT_FAMILY + "; -fx-padding: 10 20;"
+                + options
+                + " -fx-cursor: hand;";
+        String hover  = "-fx-background-color: " + UIConstants.BTN_HOVER + "; "
+                + UIConstants.BORDER_WHITE
+                + " -fx-text-fill: " + UIConstants.RETRO_YELLOW + ";"
+                + " -fx-font-family: " + UIConstants.FONT_FAMILY + "; -fx-padding: 10 20;"
+                + options
+                + " -fx-cursor: hand;";
+
+        btn.setStyle(normal);
+        btn.setOnMouseEntered(e -> btn.setStyle(hover));
+        btn.setOnMouseExited(e  -> btn.setStyle(normal));
         return btn;
+    }
+
+    public static Button createButton(String text){
+        return createButton(text, "");
+    }
+
+    public static void applyTabStyle(Button btn, boolean selected) {
+        String bg  = selected ? UIConstants.TAB_SELECTED   : UIConstants.TAB_UNSELECTED;
+        String txt = selected ? UIConstants.WHITE           : "#222222";
+        btn.setStyle(buildTabStyle(bg, txt));
+    }
+
+    public static String buildTabStyle(String bg, String txt) {
+        return "-fx-background-color: " + bg + ";"
+                + " -fx-text-fill: " + txt + ";"
+                + " -fx-font-family: " + UIConstants.FONT_FAMILY + ";"
+                + " -fx-font-size: 10px;"
+                + " -fx-background-radius: 20;"
+                + " -fx-border-radius: 20;"
+                + " -fx-padding: 6 14;"
+                + " -fx-cursor: hand;";
     }
 }
