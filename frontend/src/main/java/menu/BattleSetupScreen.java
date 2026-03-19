@@ -26,7 +26,6 @@ public class BattleSetupScreen {
     private final String startButtonText;
     private final String realmName;
 
-    // Track the final choices for the mini-game
     private Character selectedP1Character = null;
     private Character selectedP2Character = null;
     private Button startButton;
@@ -65,12 +64,15 @@ public class BattleSetupScreen {
 
         // --- BOTTOM: START BUTTON ---
         startButton = new Button(startButtonText);
-        startButton.setDisable(true); // Disabled until both players pick a character!
+        startButton.setDisable(false); // Profiles already set from character draft
         startButton.setStyle("-fx-font-size: 18px; -fx-padding: 10 30; -fx-background-color: #1B5B1D; -fx-border-color: #FFFFFF; -fx-border-width: 4; -fx-text-fill: #EEEEEE; -fx-font-family: 'Press Start 2P';");
 
         startButton.setOnAction(e -> {
-            // Right now this just prints, but soon we will build engine.launchTurnDuel()
-            System.out.println("Launching Turn-Based Battle with " + selectedP1Character.getName() + " vs " + selectedP2Character.getName());
+            System.out.println("Launching Turn-Based Battle with "
+                    + engine.player1Profile.getPlayerName()
+                    + " vs "
+                    + engine.player2Profile.getPlayerName());
+            engine.launchDuel();
         });
 
         HBox bottomBox = new HBox(startButton);

@@ -38,6 +38,10 @@ public class RunesOfReckoning implements MiniAdventure {
         state = controller.handleCommand(playerNumber, command, state);
     }
 
+    public void handleItemUsed(PlayerNumber playerNumber, items.Item item) {
+        state = controller.handleItemUsed(playerNumber, item, state);
+    }
+
     @Override
     public void update() {
         state = controller.tick(state);

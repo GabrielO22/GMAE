@@ -107,4 +107,15 @@ public class Engine extends Application {
         CharacterSelectScreen draftScreen = new CharacterSelectScreen(this);
         mainLayout.setCenter(draftScreen.getLayout());
     }
+
+    public void launchDuel() {
+        Platform.runLater(() -> {
+            menu.BattleScreen battleScreen = new menu.BattleScreen(
+                    window, this, player1Profile, player2Profile);
+            mainLayout.setCenter(battleScreen.getLayout());
+            window.getScene().setRoot(mainLayout); // restore mainLayout as scene root
+            window.sizeToScene();
+            window.centerOnScreen();
+        });
+    }
 }
