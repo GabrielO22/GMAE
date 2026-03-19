@@ -36,6 +36,7 @@ public class MainMenuScreen {
         // GENERATE RETRO BUTTONS
         Button itemCollectionButton = createRetroButton("Realm Relic Run");
         Button turnDuelButton = createRetroButton("Runes of Reckoning");
+        Button profileButton = createRetroButton("Player Profiles");
 
         // When clicked, it tells Engine to launch the correct Setup Screen
         itemCollectionButton.setOnAction(e -> {
@@ -52,7 +53,12 @@ public class MainMenuScreen {
             stage.getScene().setRoot(duelScreen.getLayout());
         });
 
-        layout.getChildren().addAll(title, subtitle, itemCollectionButton, turnDuelButton);
+        profileButton.setOnAction(e -> {
+            PlayerProfileManager profileManager = new PlayerProfileManager(stage, engine);
+            stage.getScene().setRoot(profileManager.getLayout());
+        });
+
+        layout.getChildren().addAll(title, subtitle, itemCollectionButton, turnDuelButton, profileButton);
     }
 
     // Helper method to keep our button styling clean and consistent
