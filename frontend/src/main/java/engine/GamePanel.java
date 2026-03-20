@@ -2,6 +2,7 @@ package engine;
 
 import characters.Character;
 import entity.Player;
+import javafx.application.Platform;
 import object.SuperObject;
 import tile.TileManager;
 
@@ -25,8 +26,14 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldCol = 25;
     public final int maxWorldRow = 25;
 
-
+    // TIMER SYSTEM
     int FPS = 60;
+    public double playTime; // How much time is left in seconds
+    public boolean isTimeUp = false; // Flag to stop the game
+    public final double STARTING_TIME = 45.0; // 45 seconds
+    public boolean isGameOver = false;
+
+
     public String currentRealm;
     TileManager tileM;
     public CollisionChecker cChecker = new CollisionChecker(this);
@@ -65,6 +72,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
         assetSetter.setObject();
+        playTime = STARTING_TIME;
+        isTimeUp = false;
+        isGameOver = false;
     }
 
     public void startGameThread() {
@@ -95,6 +105,19 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
+        if (isTimeUp) {
+            return;
+        }
+
+        // 1. Tick down the timer
+        playTime -= (1.0 / 60.0);
+
+        // 2. Check for Timeout
+        if (playTime <= 0) {
+            playTime = 0;
+            triggerGameOver();
+        }
+
         player1.update();
         player2.update();
     }
@@ -121,7 +144,20 @@ public class GamePanel extends JPanel implements Runnable {
         player1.draw(g2, player1.worldX - camX, player1.worldY - camY);
         player2.draw(g2, player2.worldX - camX, player2.worldY - camY);
 
-        g2.dispose(); // Good practice to save memory
+        // TIMER
+        g2.setFont(new Font("Arial", Font.BOLD, 40));
+
+        // Format to show 2 decimal places
+        String timeString = "Time: " + String.format("%.2f", playTime);
+
+        // Draw black drop-shadow
+        g2.setColor(Color.BLACK);
+        g2.drawString(timeString, 27, 52);
+
+        // Draw main text (Red if under 10 seconds, otherwise White)
+        g2.setColor(playTime <= 10.0 ? Color.RED : Color.WHITE);
+        g2.drawString(timeString, 25, 50);
+
         Toolkit.getDefaultToolkit().sync(); // force display to sync with frame rate of game
     }
 
@@ -144,6 +180,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void checkWinCondition() {
+        if (isGameOver) return;
+
         int itemsLeft = 0;
         for (SuperObject superObject : obj) {
             if (superObject != null) {
@@ -152,21 +190,72 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         if (itemsLeft == 0) {
+            isGameOver = true; // lock game state
             System.out.println("All Relics Found!");
-            gameThread = null;
+            gameThread = null; // Stop the real-time game loop
+            saveInventoriesToBackend();
 
-            // Pseudo-code for when backend Inventory class is ready:
-            for (SuperObject item : player1.inventory) {
-                // p1Character.getInventory().addItem(item.backendItemId);
-                System.out.println(p1Character.getName() + " stored: " + item.name);
-            }
+            Platform.runLater(() -> {
+                if (engine != null) {
+                    engine.returnToMainMenu();
+                }
+            });
+        }
+    }
 
-            for (SuperObject item : player2.inventory) {
-                System.out.println(p2Character.getName() + " stored: " + item.name);
-            }
+    private void triggerGameOver() {
+        if (isGameOver) return;
 
+        isGameOver = true;
+        isTimeUp = true;
+        gameThread = null;
+
+        saveInventoriesToBackend();
+
+        Platform.runLater(() -> {
+            System.out.println("TIME IS UP! Relic hunt failed.");
             if (engine != null) {
                 engine.returnToMainMenu();
+            }
+        });
+    }
+
+    private items.Item convertToBackendItem(String itemName) {
+        return switch (itemName) {
+            case "Health Potion" -> items.ItemFactory.createHealthPotion();
+            case "Sword" -> items.ItemFactory.createSword();
+            case "Assassin Blade" -> items.ItemFactory.createAssassinBlade();
+            case "Helmet" -> items.ItemFactory.createHelmet();
+            case "Armor" -> items.ItemFactory.createArmor();
+            case "Shield" -> items.ItemFactory.createShield();
+            case "Spear" -> items.ItemFactory.createSpear();
+            case "Hermes Boots" -> items.ItemFactory.createHermesBoots();
+            case "Poison Vial" -> items.ItemFactory.createPoisonVial();
+            case "Cursed Rune" -> items.ItemFactory.createCursedRune();
+            case "Debuff Scroll" -> items.ItemFactory.createDebuffScroll();
+            case "Leaden Boots" -> items.ItemFactory.createLeadenBoots();
+            default -> null; // Ignored items (like the Obsidian Skull or missing items)
+        };
+    }
+
+    private void saveInventoriesToBackend() {
+        System.out.println("Saving loot to character profiles...");
+
+        // Process Player 1's Loot
+        for (SuperObject visualItem : player1.inventory) {
+            items.Item backendItem = convertToBackendItem(visualItem.name);
+            if (backendItem != null) {
+                p1Character.getInventory().addItem(backendItem, 1);
+                System.out.println(p1Character.getName() + " secured a " + backendItem.getName());
+            }
+        }
+
+        // Process Player 2's Loot
+        for (SuperObject visualItem : player2.inventory) {
+            items.Item backendItem = convertToBackendItem(visualItem.name);
+            if (backendItem != null) {
+                p2Character.getInventory().addItem(backendItem, 1);
+                System.out.println(p2Character.getName() + " secured a " + backendItem.getName());
             }
         }
     }
