@@ -12,6 +12,7 @@ public class PlayerProfile {
     private int numRelicsCollected;
     private int duelsWon;
     private int duelsLost;
+    private int selectedAvatarIndex;
 
     private final List<Character> characters;
     private final int MAX_CHARACTERS = 3;
@@ -24,6 +25,7 @@ public class PlayerProfile {
         }
         duelsWon = 0;
         duelsLost = 0;
+        selectedAvatarIndex = 0;
     }
 
     public UUID getPlayerID() {
@@ -63,6 +65,14 @@ public class PlayerProfile {
     }
 
     public String getDuelRecord()  { return "Duel Record: " + duelsWon + "-" + duelsLost; }
+
+    public int getSelectedAvatarIndex() {
+        return selectedAvatarIndex;
+    }
+
+    public void setSelectedAvatarIndex(int index) {
+        this.selectedAvatarIndex = index;
+    }
 
     public List<Character> getCharacters() {
         return characters;

@@ -6,6 +6,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -14,7 +16,11 @@ import music.MusicPlayer;
 import profiles.PlayerProfile;
 import utils.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import static utils.Constants.AVATAR_PATHS;
 
 public class PlayerProfileManager {
     private final Stage stage;
@@ -139,12 +145,79 @@ public class PlayerProfileManager {
     // PORTRAIT GRID
     // =============================================
     private GridPane createPortraitGrid() {
+        PlayerProfile profile = getCurrentProfile();
         GridPane grid = new GridPane();
         grid.setHgap(8);
         grid.setVgap(8);
-        for (int row = 0; row < 5; row++)
-            for (int col = 0; col < 2; col++)
-                grid.add(new Circle(22, Color.BLACK), col, row);
+
+        List<StackPane> avatarNodes = new ArrayList<>();
+        for (int i = 0; i < AVATAR_PATHS.length; ++i) {
+            final int index = i;
+            int col = i % 2;
+            int row = i / 2;
+
+            // Inner content: image or fallback circle
+            StackPane avatarPane = new StackPane();
+            avatarPane.setPrefSize(44, 44);
+
+            Circle clip = new Circle(22);
+            clip.setCenterX(22);
+            clip.setCenterY(22);
+
+            try {
+                ImageView iv = new ImageView(new Image(
+                        Objects.requireNonNull(
+                                getClass().getResourceAsStream(AVATAR_PATHS[i]))));
+                iv.setFitWidth(44);
+                iv.setFitHeight(44);
+                iv.setSmooth(true);
+                iv.setClip(clip);
+                avatarPane.getChildren().add(iv);
+            } catch (Exception e) {
+                // No image yet — show a numbered fallback circle
+                Circle fallback = new Circle(22, Color.web("#4a4a6a"));
+                Label letter = new Label(String.valueOf(i + 1));
+                letter.setStyle("-fx-text-fill: white; -fx-font-size: 8px;" +
+                        " -fx-font-family: 'Press Start 2P';");
+                avatarPane.getChildren().addAll(fallback, letter);
+            }
+
+            // Selection ring — yellow if selected, transparent otherwise
+            Circle ring = new Circle(24);
+            ring.setFill(Color.TRANSPARENT);
+            ring.setStrokeWidth(3);
+            ring.setStroke(profile.getSelectedAvatarIndex() == i
+                    ? Color.web("#FFFF00")
+                    : Color.TRANSPARENT);
+
+            StackPane wrapper = new StackPane(avatarPane, ring);
+            wrapper.setPrefSize(50, 50);
+            wrapper.setCursor(javafx.scene.Cursor.HAND);
+
+            // Click: select this avatar
+            wrapper.setOnMouseClicked(e -> {
+                profile.setSelectedAvatarIndex(index);
+                for (int j = 0; j < avatarNodes.size(); j++) {
+                    Circle r = (Circle) avatarNodes.get(j).getChildren().get(1);
+                    r.setStroke(j == index
+                            ? Color.web("#FFFF00")
+                            : Color.TRANSPARENT);
+                }
+            });
+
+            // Hover glow
+            wrapper.setOnMouseEntered(e -> {
+                if (profile.getSelectedAvatarIndex() != index)
+                    ring.setStroke(Color.web("#888888"));
+            });
+            wrapper.setOnMouseExited(e -> {
+                if (profile.getSelectedAvatarIndex() != index)
+                    ring.setStroke(Color.TRANSPARENT);
+            });
+
+            avatarNodes.add(wrapper);
+            grid.add(wrapper, col, row);
+        }
 
         return grid;
     }
