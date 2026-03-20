@@ -70,7 +70,7 @@ public class PlayerProfileManager {
     private VBox createHeader() {
         Label title = StyleFactory.createLabel("Player Profile Manager", 20, Constants.OFF_WHITE);
         Label name = StyleFactory.createLabel(getCurrentProfile().getPlayerName(), 16, Constants.WHITE);
-        Label relics = StyleFactory.createLabel("Relics Collected: 0", 14, Constants.WHITE);
+        Label relics = StyleFactory.createLabel(getCurrentProfile().getRelicsCollectedToString(), 14, Constants.WHITE);
         Label records = StyleFactory.createLabel(getCurrentProfile().getDuelRecord(), 14, Constants.WHITE);
 
         VBox header = new VBox(12, title, name, relics, records);
