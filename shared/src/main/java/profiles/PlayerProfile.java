@@ -66,6 +66,8 @@ public class PlayerProfile {
 
     public String getDuelRecord()  { return "Duel Record: " + duelsWon + "-" + duelsLost; }
 
+    public String getRelicsCollectedToString() { return "Relics Collected: " + numRelicsCollected; }
+
     public int getSelectedAvatarIndex() {
         return selectedAvatarIndex;
     }
