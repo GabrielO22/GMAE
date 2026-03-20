@@ -15,7 +15,7 @@ public class Setup {
         PlayerProfile playerTwo = new PlayerProfile();
 
         Map<Item, Integer> forestLoot = Map.of(
-                ItemFactory.createPotion(), 50,
+                ItemFactory.createHealthPotion(), 50,
                 ItemFactory.createSpear(), 20
         );
 

@@ -85,7 +85,7 @@ public class Player extends Entity {
     private BufferedImage loadAndScale(String imagePath) {
         BufferedImage scaledImage = null;
         try {
-            // Load the raw, original image
+            // Load the raw, original mage
             BufferedImage original = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
 
             // Create a new blank canvas strictly locked to our tile size
@@ -221,10 +221,35 @@ public class Player extends Entity {
 
                 // Match the visual object's name to the factory
                 switch (grabbedVisualObject.name) {
-                    case "Hermes Boots": backendItem = items.ItemFactory.createSpeedBoots(); break;
-                    case "Iron Sword": backendItem = items.ItemFactory.createSword(); break;
-                    case "Health Potion": backendItem = items.ItemFactory.createPotion(); break;
-                    case "Relic Key": break; // Relics might just be win-condition counters, not inventory stats
+                    // Consumable
+                    case "Health Potion": backendItem = items.ItemFactory.createHealthPotion(); break;
+
+                    // Weapons
+                    case "Sword": backendItem = items.ItemFactory.createSword(); break;
+                    case "Assassin Blade": backendItem = items.ItemFactory.createAssassinBlade(); break;
+
+                    // Buffs
+                    case "Helmet": backendItem = items.ItemFactory.createHelmet(); break;
+                    case "Armor": backendItem = items.ItemFactory.createArmor(); break;
+                    case "Shield": backendItem = items.ItemFactory.createShield(); break;
+                    case "Spear": backendItem = items.ItemFactory.createSpear(); break;
+                    case "Hermes Boots": backendItem = items.ItemFactory.createHermesBoots(); break;
+
+                    // Debuffs
+                    case "Poison Vial": backendItem = items.ItemFactory.createPoisonVial(); break;
+                    case "Cursed Rune": backendItem = items.ItemFactory.createCursedRune(); break;
+                    case "Debuff Scroll": backendItem = items.ItemFactory.createDebuffScroll(); break;
+                    case "Leaden Boots": backendItem = items.ItemFactory.createLeadenBoots(); break;
+
+                    case "Ancient Seed":
+                    case "Obsidian Skull":
+                    case "Frozen Tear":
+                    case "Golden Scarab":
+                    case "Dinosaur Egg":
+                    case "Mystery Relic":
+                        // Relics trigger the win condition in the main update loop, so no backend stat item is needed
+                        break;
+
                     default: System.out.println("Unknown item: " + grabbedVisualObject.name);
                 }
 

@@ -53,6 +53,8 @@ public class Item {
     }
 
     public void applyEffect(Character target) {
-        effect.apply(target);
+        if (this.effect != null) {
+            this.effect.apply(target);
+        }
     }
 }

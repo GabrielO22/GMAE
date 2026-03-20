@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Character p1Character;
     public Character p2Character;
 
-    public SuperObject[] obj = new SuperObject[10];
+    public SuperObject[] obj = new SuperObject[20];
 
     public Engine engine;
 

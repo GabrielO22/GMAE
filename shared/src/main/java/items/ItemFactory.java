@@ -2,6 +2,32 @@ package items;
 
 public class ItemFactory {
 
+    // Consumable
+    public static Item createHealthPotion() {
+        return new Item("Health Potion", ItemType.CONSUMABLE, new HealEffect(0.30));
+    }
+
+    //
+    public static Item createSword() {
+        Buff swordBuff = new Buff("Sword buff", 1,
+                c -> c.modifyAttack((int) (c.getAttack() * 0.25)),
+                c -> c.modifyCritRate(c.getCritRate() * 0.25)
+        );
+        return new Item("Sword", ItemType.WEAPON, new AddBuffEffect(swordBuff),
+                Item.DEFAULT_WEAPON_DURABILITY);
+    }
+
+    public static Item createAssassinBlade() {
+        Buff bladeBuff = new Buff("Armor Piercer", 1,
+                c -> c.setAttribute("EFFECT_IGNORES_DEFENSE", true),
+                c -> c.removeAttribute("EFFECT_IGNORES_DEFENSE")
+        );
+        return new Item("Assassin Blade", ItemType.WEAPON, new AddBuffEffect(bladeBuff),
+                Item.DEFAULT_WEAPON_DURABILITY);
+    }
+
+
+    // Buffs
     public static Item createHelmet() {
         Buff helmetBuff = new Buff("Helmet buff", -1,
                 c -> c.setAttribute("EFFECT_REDUCE_DMG", true),
@@ -26,14 +52,7 @@ public class ItemFactory {
         return new Item("Shield", ItemType.BUFF, new AddBuffEffect(shieldBuff));
     }
 
-    public static Item createSword() {
-        Buff swordBuff = new Buff("Sword buff", 1,
-                c -> c.modifyAttack((int) (c.getAttack() * 0.25)),
-                c -> c.modifyCritRate(c.getCritRate() * 0.25)
-        );
-        return new Item("Sword", ItemType.WEAPON, new AddBuffEffect(swordBuff),
-                Item.DEFAULT_WEAPON_DURABILITY);
-    }
+
 
     public static Item createSpear() {
         Buff spearBuff = new Buff("Spear Focus", 3,
@@ -43,20 +62,8 @@ public class ItemFactory {
         return new Item("Spear", ItemType.BUFF, new AddBuffEffect(spearBuff));
     }
 
-    public static Item createPotion() {
-        return new Item("Health Potion", ItemType.CONSUMABLE, new HealEffect(0.30));
-    }
 
-    public static Item createAssassinBlade() {
-        Buff bladeBuff = new Buff("Armor Piercer", 1,
-                c -> c.setAttribute("EFFECT_IGNORES_DEFENSE", true),
-                c -> c.removeAttribute("EFFECT_IGNORES_DEFENSE")
-        );
-        return new Item("Assassin Blade", ItemType.WEAPON, new AddBuffEffect(bladeBuff),
-                Item.DEFAULT_WEAPON_DURABILITY);
-    }
-
-    public static Item createSpeedBoots() {
+    public static Item createHermesBoots() {
         Buff speedBuff = new Buff("Hermes Swiftness", 3,
                 c -> c.modifySpeed(2),
                 c -> c.modifySpeed(-2)
@@ -65,6 +72,8 @@ public class ItemFactory {
     }
 
 
+
+    // Debuffs
     public static Item createPoisonVial() {
         Buff poisonBuff = new Buff("Poison", 3,
                 c -> c.setAttribute("POISONED_DAMAGE", (int)(c.getMaxHP() * 0.08)),
