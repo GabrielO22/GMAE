@@ -2,6 +2,7 @@ package menu;
 
 import characters.Character;
 import engine.Engine;
+import items.Item;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ import utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import static utils.Constants.AVATAR_PATHS;
@@ -31,6 +33,7 @@ public class PlayerProfileManager {
     private int activePlayer;
     private Button[] tabs;
     private VBox statsPanel;
+    private GridPane relicGrid;
 
     public PlayerProfileManager(Stage stage, Engine engine) {
         this.stage = stage;
@@ -117,6 +120,7 @@ public class PlayerProfileManager {
 
                 // Refresh stats, no full re-render
                 refreshStatsPanel(characters.get(activeTab));
+                refreshRelicGrid(characters.get(activeTab));
             });
 
             tabs[i] = btn;
@@ -136,8 +140,11 @@ public class PlayerProfileManager {
         mainCard.setStyle("-fx-background-color: " + Constants.CARD_GREY + ";" + ";" + "-fx-border-width: 3;" + "-fx-border-radius: 12;" + "-fx-background-radius: 12;");
         mainCard.setPadding(new Insets(16));
         mainCard.setAlignment(Pos.CENTER);
+
         statsPanel = createStatsPanel();
-        mainCard.getChildren().addAll(createPortraitGrid(), createRelicGrid(), statsPanel);
+        relicGrid = createRelicGrid();
+
+        mainCard.getChildren().addAll(createPortraitGrid(), relicGrid, statsPanel);
         return mainCard;
     }
 
@@ -226,27 +233,112 @@ public class PlayerProfileManager {
     // RELIC GRID
     // =============================================
     private GridPane createRelicGrid() {
+        return buildRelicGrid(getCharacters().get(activeTab));
+    }
+
+    private GridPane buildRelicGrid(Character character) {
         GridPane grid = new GridPane();
         grid.setHgap(3);
         grid.setVgap(3);
 
-        for (int row = 0; row < 5; row++) {
-            for (int col = 0; col < 5; col++) {
-                VBox slot = new VBox(2);
-                slot.setAlignment(Pos.CENTER);
-                slot.setPrefSize(70, 50);
+        List<Map.Entry<Item, Integer>> entries =
+                new ArrayList<>(character.getInventory().getItems().entrySet());
 
-                boolean dark = (row + col) % 2 == 0;
-                slot.setStyle("-fx-background-color: " + (dark ? Constants.RELIC_SLOT_DARK : Constants.RELIC_SLOT_LIGHT) + ";");
+        int totalSlots = 20;
+        int filledSlots = 0;
 
-                Label rName = StyleFactory.createLabel("Long Relic\nName", 6, Constants.WHITE, "-fx-text-alignment: center;");
-                Label rVal = StyleFactory.createLabel("1", 6, Constants.WHITE);
-
-                slot.getChildren().addAll(rName, rVal);
-                grid.add(slot, col, row);
-            }
+        // Quantity shown as a badge
+        for (Map.Entry<Item, Integer> entry : entries) {
+            if (filledSlots >= totalSlots) break;
+            int row = filledSlots / 4;
+            int col = filledSlots % 4;
+            grid.add(buildRelicSlot(entry.getKey(), entry.getValue(), row, col), col, row);
+            ++filledSlots;
         }
+
+        // Fill remainder with empty placeholders
+        for (int i = filledSlots; i < totalSlots; i++) {
+            int row = i / 4;
+            int col = i % 4;
+            grid.add(buildRelicSlot(null, 0, row, col), col, row);
+        }
+
         return grid;
+    }
+
+    private StackPane buildRelicSlot(Item item, int qty, int row, int col) {
+        StackPane stack = new StackPane();
+        stack.setPrefSize(90, 65);
+
+        // Checkerboard background
+        boolean dark = (row + col) % 2 == 0;
+        VBox slot = new VBox(2);
+        slot.setAlignment(Pos.CENTER);
+        slot.setPrefSize(90, 65);
+        slot.setStyle("-fx-background-color: "
+                + (dark ? Constants.RELIC_SLOT_DARK : Constants.RELIC_SLOT_LIGHT) + ";");
+
+        if (item != null) {
+            String spritePath = "/objects/"
+                    + item.getName().toLowerCase().replace(" ", "_") + ".png";
+
+            try {
+                ImageView iv = new ImageView(new Image(
+                        Objects.requireNonNull(
+                                getClass().getResourceAsStream(spritePath))));
+                iv.setFitWidth(36);
+                iv.setFitHeight(36);
+                iv.setSmooth(false);
+                slot.getChildren().add(iv);
+            } catch (Exception e) {
+                slot.getChildren().add(
+                        StyleFactory.createLabel(item.getName(), 6, Constants.WHITE,
+                                "-fx-text-alignment: center;"));
+            }
+
+            slot.getChildren().add(
+                    StyleFactory.createLabel(item.getName(), 6, Constants.WHITE,
+                            "-fx-text-alignment: center;"));
+
+            stack.getChildren().add(slot);
+
+            // quantity pinned to bottom-right corner
+            if (qty > 1) {
+                Label badge = getBadge(qty);
+                StackPane.setAlignment(badge, Pos.BOTTOM_RIGHT);
+                StackPane.setMargin(badge, new Insets(0, 2, 2, 0));
+                stack.getChildren().add(badge);
+            }
+
+        } else {
+            // Empty slot
+            slot.getChildren().add(
+                    StyleFactory.createLabel("—", 8, "#555555"));
+            stack.getChildren().add(slot);
+        }
+
+        return stack;
+    }
+
+    private Label getBadge(int qty) {
+        Label badge = new Label(String.valueOf(qty));
+        badge.setStyle(
+                "-fx-background-color: #000000; " +
+                        "-fx-text-fill: #FFFF00; " +
+                        "-fx-font-size: 7px; " +
+                        "-fx-font-family: 'Press Start 2P'; " +
+                        "-fx-padding: 1 3; " +
+                        "-fx-border-color: #FFFF00; " +
+                        "-fx-border-width: 1;"
+        );
+        return badge;
+    }
+
+    private void refreshRelicGrid(Character character) {
+        GridPane newGrid = buildRelicGrid(character);
+        relicGrid.getChildren().setAll(newGrid.getChildren());
+        relicGrid.getRowConstraints().setAll(newGrid.getRowConstraints());
+        relicGrid.getColumnConstraints().setAll(newGrid.getColumnConstraints());
     }
 
     // =============================================
