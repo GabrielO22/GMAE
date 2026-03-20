@@ -10,21 +10,39 @@ public class Inventory {
     }
 
     public void addItem(Item item, int quantity) { // changed to fit Item not String
-        if (items.containsKey(item)) {
-            items.put(item, items.get(item) + quantity);
-        } else {
-            items.put(item, quantity);
+        // search by item name
+        for (Item existingItem : items.keySet()) {
+            // If it has the same name AND it is NOT a weapon with durability, stack it
+            if (existingItem.getName().equals(item.getName()) && !existingItem.hasDurability()) {
+                items.put(existingItem, items.get(existingItem) + quantity);
+                return;
+            }
         }
+
+        items.put(item, quantity);
     }
 
     public void useItem(Item item, int quantity) { // changed to fit Item not String
-        if (items.containsKey(item) && items.get(item) > quantity) {
-            items.put(item, items.get(item) - quantity);
+        // search inventory for item by name
+        Item matchedItem = null;
+        for (Item existingItem : items.keySet()) {
+            if (existingItem.getName().equals(item.getName())) {
+                matchedItem = existingItem;
+                break;
+            }
         }
-        else {
-            items.remove(item);
+
+        // If item found, reduce quantity or remove it
+        if (matchedItem != null) {
+            int currentQty = items.get(matchedItem);
+            if (currentQty > quantity) {
+                items.put(matchedItem, currentQty - quantity);
+            } else {
+                items.remove(matchedItem);
+            }
         }
     }
+
     public Map<Item, Integer> getItems() { // Changed to fit Item not String
         return items;
     }

@@ -234,6 +234,12 @@ public class GamePanel extends JPanel implements Runnable {
             case "Cursed Rune" -> items.ItemFactory.createCursedRune();
             case "Debuff Scroll" -> items.ItemFactory.createDebuffScroll();
             case "Leaden Boots" -> items.ItemFactory.createLeadenBoots();
+            case "Ancient Seed" -> items.ItemFactory.createAncientSeed();
+            case "Obsidian Skull" -> items.ItemFactory.createObsidianSkull();
+            case "Frozen Tear" -> items.ItemFactory.createFrozenTear();
+            case "Golden Scarab" -> items.ItemFactory.createGoldenScarab();
+            case "Dinosaur Egg" -> items.ItemFactory.createDinosaurEgg();
+            case "Mystery Relic" -> items.ItemFactory.createMysteryRelic();
             default -> null; // Ignored items (like the Obsidian Skull or missing items)
         };
     }

@@ -115,4 +115,30 @@ public class ItemFactory {
         );
         return new Item("Leaden Boots", ItemType.DEBUFF, new AddBuffEffect(slowBuff));
     }
+
+
+    // Relics
+    public static Item createAncientSeed() {
+        return new Item("Ancient Seed", ItemType.BUFF, null);
+    }
+
+    public static Item createObsidianSkull() {
+        return new Item("Obsidian Skull", ItemType.BUFF, null);
+    }
+
+    public static Item createFrozenTear() {
+        return new Item("Frozen Tear", ItemType.BUFF, null);
+    }
+
+    public static Item createGoldenScarab() {
+        return new Item("Golden Scarab", ItemType.BUFF, null);
+    }
+
+    public static Item createDinosaurEgg() {
+        return new Item("Dinosaur Egg", ItemType.BUFF, null);
+    }
+
+    public static Item createMysteryRelic() {
+        return new Item("Mystery Relic", ItemType.BUFF, null);
+    }
 }
