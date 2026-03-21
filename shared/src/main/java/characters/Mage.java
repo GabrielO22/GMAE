@@ -8,13 +8,13 @@ public class Mage implements CharacterType {
     @Override
     public String displayName() { return "Mage"; }
     @Override
-    public int maxHP() { return 70; }
+    public int maxHP() { return 75; }
     @Override
-    public int attack() { return 35; }
+    public int attack() { return 30; }
     @Override
-    public int defence() { return 4; }
+    public int defence() { return 5; }
     @Override
-    public int speed() { return 4; }
+    public int speed() { return 5; }
 
     @Override
     public String getSpritePath() {

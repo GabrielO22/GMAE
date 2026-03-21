@@ -15,17 +15,17 @@ public class Adventurer implements CharacterType {
 
     @Override
     public int maxHP() {
-        return 85;
+        return 100;
     }
 
     @Override
     public int attack() {
-        return 20;
+        return 22;
     }
 
     @Override
     public int defence() {
-        return 8;
+        return 10;
     }
 
     @Override

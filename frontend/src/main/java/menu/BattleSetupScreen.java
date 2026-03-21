@@ -60,10 +60,10 @@ public class BattleSetupScreen {
         layout.setTop(topBox);
 
         // --- CENTER: Team previews + VS graphic ---
-        VBox p1Team = buildTeamPreview(engine.player1Profile.getPlayerName(),
-                engine.player1Profile.getCharacters());
-        VBox p2Team = buildTeamPreview(engine.player2Profile.getPlayerName(),
-                engine.player2Profile.getCharacters());
+        VBox p1Team = buildTeamPreview(engine.getPlayer1Profile().getPlayerName(),
+                engine.getPlayer1Profile().getCharacters());
+        VBox p2Team = buildTeamPreview(engine.getPlayer2Profile().getPlayerName(),
+                engine.getPlayer2Profile().getCharacters());
 
         Label vsLabel = new Label("VS");
         vsLabel.setStyle("-fx-font-size: 48px; -fx-font-weight: bold; -fx-text-fill: #FFFF00;" +

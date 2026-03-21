@@ -15,22 +15,22 @@ public class Warrior implements CharacterType {
 
     @Override
     public int maxHP() {
-        return 90;
+        return 95;
     }
 
     @Override
     public int attack() {
-        return 30;
+        return 28;
     }
 
     @Override
     public int defence() {
-        return 5;
+        return 8;
     }
 
     @Override
     public int speed() {
-        return 4;
+        return 5;
     }
 
     @Override

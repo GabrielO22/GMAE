@@ -14,7 +14,7 @@ import java.util.Random;
 public class RunesOfReckoningController {
 
     private static final double CRIT_MULTIPLIER = 1.75;
-    // Defend = full block: 0 damage gets through next hit (like Pokémon Protect)
+    // Defend = heals 25% of max HP — costs your turn, guaranteed value regardless of opponent action
     private final Random rng = new Random();
 
     public RunesOfReckoningController() {}
@@ -129,7 +129,15 @@ public class RunesOfReckoningController {
         boolean ignoresDefence = Boolean.TRUE.equals(atk.getAttribute("EFFECT_IGNORES_DEFENSE"));
 
         // Item flags on defender
-        boolean reduceDmg = Boolean.TRUE.equals(def.getAttribute("EFFECT_REDUCE_DMG"));
+        boolean reduceDmg      = Boolean.TRUE.equals(def.getAttribute("EFFECT_REDUCE_DMG"));
+        boolean ignoresAttack  = Boolean.TRUE.equals(def.getAttribute("EFFECT_IGNORES_ATTK"));
+
+        // Shield — fully block the attack
+        if (ignoresAttack) {
+            def.removeAttribute("EFFECT_IGNORES_ATTK"); // consumed on use
+            String blockLog = def.getName() + "'s shield blocked " + atk.getName() + "'s attack!";
+            return advanceTurn(attacker, state, blockLog, false);
+        }
 
         int defence = ignoresDefence ? 0 : def.getDefence();
         int damage  = Math.max(1, rawDamage - defence);
@@ -179,7 +187,45 @@ public class RunesOfReckoningController {
     }
 
     // -----------------------------------------------------------------------
-    // SWAP CHARACTER
+    // SWAP TO SPECIFIC INDEX — called directly by BattleScreen picker
+    // -----------------------------------------------------------------------
+    public RunesOfReckoningGameState swapToIndex(
+            PlayerNumber swapper, int targetIndex, RunesOfReckoningGameState state) {
+
+        List<Character> team = swapper == PlayerNumber.PLAYER_ONE
+                ? state.playerOne().getCharacters()
+                : state.playerTwo().getCharacters();
+
+        int currentIndex = swapper == PlayerNumber.PLAYER_ONE
+                ? state.playerOneActiveIndex()
+                : state.playerTwoActiveIndex();
+
+        if (targetIndex == currentIndex) {
+            return state.withLog("That character is already active!", false);
+        }
+        if (targetIndex < 0 || targetIndex >= team.size()) {
+            return state.withLog("Invalid character index.", false);
+        }
+        if (team.get(targetIndex).getCurrentHP() <= 0) {
+            return state.withLog(team.get(targetIndex).getName() + " is KO'd!", false);
+        }
+
+        int p1Idx = swapper == PlayerNumber.PLAYER_ONE ? targetIndex : state.playerOneActiveIndex();
+        int p2Idx = swapper == PlayerNumber.PLAYER_TWO ? targetIndex : state.playerTwoActiveIndex();
+        String log = team.get(targetIndex).getName() + " enters the battle!";
+
+        RunesOfReckoningGameState withSwap = new RunesOfReckoningGameState(
+                state.status(), state.playerTurn(),
+                state.playerOne(), state.playerTwo(),
+                p1Idx, p2Idx,
+                state.playerOneDefending(), state.playerTwoDefending(),
+                state.duelPhase(), state.winner(), log, false
+        );
+        return advanceTurn(swapper, withSwap, log, false);
+    }
+
+    // -----------------------------------------------------------------------
+    // SWAP CHARACTER (cycle to next alive — used by MOVE_UP command)
     // -----------------------------------------------------------------------
     private RunesOfReckoningGameState handleSwap(PlayerNumber swapper, RunesOfReckoningGameState state) {
         List<Character> team = swapper == PlayerNumber.PLAYER_ONE

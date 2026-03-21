@@ -76,7 +76,7 @@ public class PlayerProfile {
     }
 
     public String getRelicsCollectedToString() {
-        return "Relics Collected: " + getTotalRelicsCollected();
+        return "Relics Collected: " + numRelicsCollected;
     }
 
     public int getSelectedAvatarIndex() {

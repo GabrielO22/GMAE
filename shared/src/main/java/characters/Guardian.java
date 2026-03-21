@@ -15,17 +15,17 @@ public class Guardian implements CharacterType {
 
     @Override
     public int maxHP() {
-        return 150;
+        return 130;
     }
 
     @Override
     public int attack() {
-        return 15;
+        return 16;
     }
 
     @Override
     public int defence() {
-        return 20;
+        return 16;
     }
 
     @Override

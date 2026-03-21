@@ -31,11 +31,11 @@ public class Player extends Entity {
         this.direction = "down";
 
 
-        // calculate speed based on character stats
+        // calculate speed based on character stats — halved for balanced movement feel
         if (myCharacter != null) {
-            this.speed = myCharacter.getSpeed();
+            this.speed = Math.max(1, myCharacter.getSpeed() / 2);
         } else {
-            this.speed = 4; // Fallback failsafe
+            this.speed = 2; // Fallback failsafe
         }
 
         getPlayerImage();
@@ -257,14 +257,21 @@ public class Player extends Entity {
                 if (backendItem != null) {
                     myCharacter.getInventory().addItem(backendItem, 1);
 
-                    // IF it's an instant-use item, apply it  now
+                    // IF it's an instant-use item, apply it now
                     if (backendItem.getType() == items.ItemType.CONSUMABLE) {
                         backendItem.applyEffect(myCharacter);
                     }
                 }
             }
 
-            // Refresh stats (in case they picked up smt like speed boots)
+            // Track relic collection on the player's profile
+            if (isPlayer1 && gamePanel.engine.getPlayer1Profile() != null) {
+                gamePanel.engine.getPlayer1Profile().addRelicCollected();
+            } else if (!isPlayer1 && gamePanel.engine.getPlayer2Profile() != null) {
+                gamePanel.engine.getPlayer2Profile().addRelicCollected();
+            }
+
+            // Refresh stats (in case they picked up something like speed boots)
             refreshStats();
 
             // Check if they won
@@ -274,7 +281,7 @@ public class Player extends Entity {
 
     public void refreshStats() {
         if (myCharacter != null) {
-            this.speed = myCharacter.getSpeed();
+            this.speed = Math.max(1, myCharacter.getSpeed() / 2);
         }
     }
 }

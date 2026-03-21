@@ -20,8 +20,11 @@ public class Engine extends Application {
     private Stage window;
     private MainMenuScreen mainMenu;
 
-    public PlayerProfile player1Profile;
-    public PlayerProfile player2Profile;
+    private PlayerProfile player1Profile;
+    private PlayerProfile player2Profile;
+
+    public PlayerProfile getPlayer1Profile() { return player1Profile; }
+    public PlayerProfile getPlayer2Profile() { return player2Profile; }
 
     public static void main(String[] args) {
         launch(args); // This launches the JavaFX application

@@ -30,8 +30,19 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
     public double playTime; // How much time is left in seconds
     public boolean isTimeUp = false; // Flag to stop the game
-    public final double STARTING_TIME = 45.0; // 45 seconds
     public boolean isGameOver = false;
+
+    /** Returns the time limit in seconds for the given realm name. */
+    public static double getTimeLimitForRealm(String realmName) {
+        return switch (realmName != null ? realmName.toUpperCase() : "FOREST") {
+            case "LAVA"   -> 90.0;   // Short and punishing
+            case "ICE"    -> 150.0;  // Large map, more time
+            case "DESERT" -> 120.0;  // Standard survival
+            case "MUD"    -> 120.0;  // Standard debuff
+            case "MINES"  -> 105.0;  // Slightly shorter weapon run
+            default       -> 120.0;  // FOREST and fallback — 2 minutes
+        };
+    }
 
 
     public String currentRealm;
@@ -72,7 +83,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
         assetSetter.setObject();
-        playTime = STARTING_TIME;
+        playTime = getTimeLimitForRealm(currentRealm); // per-realm time limit
         isTimeUp = false;
         isGameOver = false;
     }
@@ -144,19 +155,50 @@ public class GamePanel extends JPanel implements Runnable {
         player1.draw(g2, player1.worldX - camX, player1.worldY - camY);
         player2.draw(g2, player2.worldX - camX, player2.worldY - camY);
 
-        // TIMER
-        g2.setFont(new Font("Arial", Font.BOLD, 40));
+        // TIMER HUD
+        g2.setFont(new Font("Monospaced", Font.BOLD, 18));
 
-        // Format to show 2 decimal places
-        String timeString = "Time: " + String.format("%.2f", playTime);
+        int minutes = (int) playTime / 60;
+        int seconds = (int) playTime % 60;
+        String timeString = String.format("TIME  %d:%02d", minutes, seconds);
 
-        // Draw black drop-shadow
-        g2.setColor(Color.BLACK);
-        g2.drawString(timeString, 27, 52);
+        // Semi-transparent background bar
+        g2.setColor(new Color(0, 0, 0, 160));
+        g2.fillRect(0, 0, screenWidth, 36);
 
-        // Draw main text (Red if under 10 seconds, otherwise White)
-        g2.setColor(playTime <= 10.0 ? Color.RED : Color.WHITE);
-        g2.drawString(timeString, 25, 50);
+        // Timer — center, red under 30s
+        g2.setColor(playTime <= 30.0 ? Color.RED : Color.WHITE);
+        FontMetrics fm = g2.getFontMetrics();
+        int timeX = (screenWidth - fm.stringWidth(timeString)) / 2;
+        g2.drawString(timeString, timeX, 24);
+
+        // P1 relic count — top left
+        if (engine.getPlayer1Profile() != null) {
+            g2.setColor(new Color(0x0B6B80));
+            g2.setFont(new Font("Monospaced", Font.BOLD, 14));
+            g2.drawString("P1 Relics: " + engine.getPlayer1Profile().getRelicsCollected(), 10, 24);
+        }
+
+        // P2 relic count — top right
+        if (engine.getPlayer2Profile() != null) {
+            g2.setColor(new Color(0x8B0000));
+            g2.setFont(new Font("Monospaced", Font.BOLD, 14));
+            String p2Str = "P2 Relics: " + engine.getPlayer2Profile().getRelicsCollected();
+            FontMetrics fm2 = g2.getFontMetrics();
+            g2.drawString(p2Str, screenWidth - fm2.stringWidth(p2Str) - 10, 24);
+        }
+
+        // Mid-game banner when all relics are collected
+        if (allRelicsFound) {
+            g2.setFont(new Font("Monospaced", Font.BOLD, 22));
+            String banner = "All Relics Found! Returning to menu...";
+            FontMetrics fmb = g2.getFontMetrics();
+            int bx = (screenWidth - fmb.stringWidth(banner)) / 2;
+            g2.setColor(new Color(0, 0, 0, 180));
+            g2.fillRect(bx - 10, screenHeight / 2 - 30, fmb.stringWidth(banner) + 20, 40);
+            g2.setColor(new Color(0xFF, 0xFF, 0x00));
+            g2.drawString(banner, bx, screenHeight / 2);
+        }
 
         Toolkit.getDefaultToolkit().sync(); // force display to sync with frame rate of game
     }
@@ -181,27 +223,27 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void checkWinCondition() {
         if (isGameOver) return;
-
-        int itemsLeft = 0;
         for (SuperObject superObject : obj) {
-            if (superObject != null) {
-                itemsLeft++;
-            }
+            if (superObject != null) return; // at least one item remains
         }
-
-        if (itemsLeft == 0) {
-            isGameOver = true; // lock game state
-            System.out.println("All Relics Found!");
-            gameThread = null; // Stop the real-time game loop
+        // All relics collected — show banner for 3 seconds then exit
+        if (!allRelicsFound) {
+            allRelicsFound = true;
+            isTimeUp = true; // freeze player movement and timer
             saveInventoriesToBackend();
-
             Platform.runLater(() -> {
-                if (engine != null) {
+                javafx.animation.PauseTransition pause =
+                        new javafx.animation.PauseTransition(javafx.util.Duration.seconds(3));
+                pause.setOnFinished(e -> {
+                    gameThread = null; // stop game loop after banner shown
                     engine.returnToMainMenu();
-                }
+                });
+                pause.play();
             });
         }
     }
+
+    private boolean allRelicsFound = false;
 
     private void triggerGameOver() {
         if (isGameOver) return;

@@ -8,13 +8,13 @@ public class Rogue implements CharacterType {
     @Override
     public String displayName() { return "Rogue"; }
     @Override
-    public int maxHP() { return 75; }
+    public int maxHP() { return 80; }
     @Override
-    public int attack() { return 25; }
+    public int attack() { return 24; }
     @Override
-    public int defence() { return 5; }
+    public int defence() { return 6; }
     @Override
-    public int speed() { return 7; }
+    public int speed() { return 8; }
 
     @Override
     public String getSpritePath() {

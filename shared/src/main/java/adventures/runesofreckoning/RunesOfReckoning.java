@@ -38,8 +38,14 @@ public class RunesOfReckoning implements MiniAdventure {
         state = controller.handleCommand(playerNumber, command, state);
     }
 
+    /** Called by BattleScreen when the player selects a specific item from the picker. */
     public void handleItemUsed(PlayerNumber playerNumber, items.Item item) {
         state = controller.handleItemUsed(playerNumber, item, state);
+    }
+
+    /** Called by BattleScreen when the player picks a specific character to swap to. */
+    public void swapToIndex(PlayerNumber playerNumber, int targetIndex) {
+        state = controller.swapToIndex(playerNumber, targetIndex, state);
     }
 
     @Override

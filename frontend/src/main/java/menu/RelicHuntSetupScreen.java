@@ -58,8 +58,8 @@ public class RelicHuntSetupScreen {
         HBox selectionArea = new HBox(50);
         selectionArea.setAlignment(Pos.CENTER);
         selectionArea.getChildren().addAll(
-                buildPlayerColumn("Player 1", engine.player1Profile.getCharacters(), 1),
-                buildPlayerColumn("Player 2", engine.player2Profile.getCharacters(), 2)
+                buildPlayerColumn("Player 1", engine.getPlayer1Profile().getCharacters(), 1),
+                buildPlayerColumn("Player 2", engine.getPlayer2Profile().getCharacters(), 2)
         );
         layout.setCenter(selectionArea);
 

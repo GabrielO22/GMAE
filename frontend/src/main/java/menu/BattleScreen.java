@@ -348,32 +348,8 @@ public class BattleScreen {
     // DIRECT SWAP TO INDEX (bypasses controller's cycle-swap logic)
     // -----------------------------------------------------------------------
     private void processSwapToIndex(int targetIndex) {
-        RunesOfReckoningGameState state = currentState();
-        PlayerNumber acting = state.playerTurn();
-
-        int currentIndex = acting == PlayerNumber.PLAYER_ONE
-                ? state.playerOneActiveIndex()
-                : state.playerTwoActiveIndex();
-
-        if (targetIndex == currentIndex) {
-            appendLog("That character is already active!");
-            return;
-        }
-
-        // Cycle MOVE_UP until we land on the target index
-        // Simpler: we know MOVE_UP cycles to next alive — so we call swap enough times
-        // Better approach: directly build the new state via repeated handleCommand calls
-        // We'll cycle until the active index matches
-        int maxAttempts = state.playerOne().getCharacters().size();
-        for (int i = 0; i < maxAttempts; i++) {
-            adventure.handleCommand(acting, Command.MOVE_UP);
-            adventure.update();
-            RunesOfReckoningGameState newState = currentState();
-            int nowActive = acting == PlayerNumber.PLAYER_ONE
-                    ? newState.playerOneActiveIndex()
-                    : newState.playerTwoActiveIndex();
-            if (nowActive == targetIndex) break;
-        }
+        adventure.swapToIndex(currentState().playerTurn(), targetIndex);
+        adventure.update();
         refresh();
         Platform.runLater(() -> terminalInput.requestFocus());
     }

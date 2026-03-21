@@ -60,7 +60,7 @@ public class PlayerProfileManager {
     // HELPERS
     // =============================================
     private PlayerProfile getCurrentProfile() {
-        return activePlayer == 1 ? engine.player1Profile : engine.player2Profile;
+        return activePlayer == 1 ? engine.getPlayer1Profile() : engine.getPlayer2Profile();
     }
 
     private List<Character> getCharacters() {

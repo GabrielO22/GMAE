@@ -1,65 +1,102 @@
-# GuildQuest Mini Adventure Environment project for INF 122 at UC Irvine
+# GuildQuest Mini Adventure Environment
+### INF 122 — Group 16 | UC Irvine
 
-## How to Run (Gradle + Java 17)
-###  Prerequisites
+---
 
-- JDK 17 installed
-    - Recommended: Temurin 17 / OpenJDK 17
-- Internet connection the first time you run (Gradle downloads dependencies)
+## How to Run
 
-### Steps to Run in IntelliJ (Recommended)
-- Open the project folder in IntelliJ.
-    - If prompted, choose “Import as Gradle project” (or “Load Gradle Changes”).
-- Wait for Gradle sync to finish (bottom-right progress bar).
-- Open the Gradle tool window (right side).
-- Navigate to: Tasks → application → run
-- The GUI window should open.
+### Prerequisites
+- JDK 17 installed (Recommended: Temurin 17 / OpenJDK 17)
+- Internet connection on first run (Gradle downloads dependencies automatically)
 
-### Run from the Command Line (Mac/Linux)
-- From the project root: `./gradlew run`
-- If you get “Permission denied”:
-    - `chmod +x gradlew`
-    - `./gradlew run`
+### Run in IntelliJ (Recommended)
+1. Open the project folder in IntelliJ
+2. If prompted, choose "Import as Gradle project" or click "Load Gradle Changes"
+3. Wait for Gradle sync to finish (bottom-right progress bar)
+4. Open the Gradle tool window (right side panel)
+5. Navigate to: **Tasks → frontend → application → run**
+6. The GUI window will open
 
-### Run from the Command Line (Windows PowerShell)
-- From the project root: `.\gradlew.bat run`
+### Run from the Command Line
+```
+./gradlew :frontend:run
+```
+If you get "Permission denied" on Mac/Linux:
+```
+chmod +x gradlew
+./gradlew :frontend:run
+```
 
+---
 
-### Notes (If Something Goes Wrong)
+## Controls
 
-- The first run may take longer because Gradle downloads dependencies (including JavaFX).
-- If you changed build.gradle, click “Load Gradle Changes” in IntelliJ or refresh Gradle.
-- If JavaFX imports are red in IntelliJ:
-    - Refresh Gradle, or
-    - Restart IntelliJ, or
-    - File → Invalidate Caches / Restart
+### Realm Relic Run (Real-Time)
+| Player | Move Up | Move Down | Move Left | Move Right |
+|--------|---------|-----------|-----------|------------|
+| Player 1 | W | S | A | D |
+| Player 2 | ↑ | ↓ | ← | → |
 
-## Controls (Two Local Players)
+### Runes of Reckoning (Turn-Based)
+Both players share the terminal input field. Type a command and press **Enter**.
 
-(Replace once keybindings are finalized)
+| Command | Shortcut | Action |
+|---------|----------|--------|
+| `attack` | `a` | Attack the opponent's active character |
+| `defend` | `d` | Heal 25% of active character's max HP |
+| `swap` | `s` | Switch to a different character |
+| `item` | `i` | Use an item from your inventory |
+| `forfeit` | `f` | Concede the battle |
 
-Player 1: [W/A/S/D]
+When prompted after `swap` or `item`, type the number shown and press Enter.
 
-Player 2: [I/J/K/L]
+All menu navigation uses **mouse clicks**.
 
-Menu selection: mouse click buttons in the GUI
+---
 
-## Project Structure (High-Level)
+## Project Structure
 
-`engine/` — core GMAE framework (no JavaFX imports)
+```
+shared/         Core GMAE framework — MiniAdventure interface, game state,
+                characters, items, realms, player profiles
 
-`ui/` — JavaFX GUI
+frontend/       JavaFX GUI and real-time game engine — menus, battle screen,
+                tile renderer, input handling
 
-`adventures/` — mini-adventure implementations:
-- Realm Relic Run
-- Runes of Reckoning
+backend/        Setup and initialization — realm registration, adventure registration
 
-`profiles/` — player profiles + inventory persistence
+shared/src/main/java/adventures/
+    realmrelicrun/      Realm Relic Run implementation
+    runesofreckoning/   Runes of Reckoning implementation
+```
 
-## Troubleshooting: Java Version
+---
 
-This project targets Java 17.
+## How to Play
 
-To check your Java version in terminal: `java -version`
+1. Launch the game and press **PRESS START**
+2. Both players draft their team of 3 characters
+3. From the Main Menu, choose a mini-adventure:
+  - **Realm Relic Run** — race to collect as many items as possible before the timer runs out. Items collected carry over into Runes of Reckoning.
+  - **Runes of Reckoning** — turn-based 3v3 battle. Use items collected in Relic Run to gain an advantage.
+4. Visit **Player Profiles** to view your character roster, inventory, and duel record.
 
-If your system Java is not 17, IntelliJ can still run the project using its configured Project SDK (17).
+---
+
+## Troubleshooting
+
+**JavaFX imports show red in IntelliJ:**
+- Refresh Gradle, or
+- File → Invalidate Caches / Restart
+
+**Wrong Java version:**
+```
+java -version
+```
+This project targets Java 17. IntelliJ can use a configured Project SDK (17) even if your system Java differs.
+
+**First run is slow:**
+Normal — Gradle is downloading JavaFX and other dependencies. Subsequent runs are fast.
+
+**Build fails after changing build.gradle:**
+Click "Load Gradle Changes" in IntelliJ or run `./gradlew --refresh-dependencies`.
