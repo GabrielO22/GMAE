@@ -27,6 +27,11 @@ chmod +x gradlew
 ./gradlew :frontend:run
 ```
 
+### Running the JAR file
+The jar file 'GMAE-Game.jar' can be found in the root folder of the project. 
+```
+ java -jar GMAE-Game.jar 
+```
 ---
 
 ## Controls
